@@ -13,15 +13,18 @@ module.exports = {
     },
     createIssue: async (req,res)=>{
         try {
+            const {name, description, color} = req.body;
             const issue = await Issue.create({
-                title : 'New Issue', 
-                description : 'wow what an issue',
+                title : name, 
+                description : description,
+                color : color,
                 author : 'Michael Lee',
                 reviewer : 'None',
                 status : 'Created',
                 createdAt : Date.now(),
             })
-            console.log(issue)
+            const data = await issue;
+            res.send({issue: data})
         } catch (error) {
             console.log(error);
         }

@@ -13,8 +13,19 @@ module.exports = {
     },
     createUser : async (req, res)=>{
         try {
-            await User.create({name : 'Michael'})
+            const {userName, password, email, role, projects, teams, issues, stats} = req.body;
+            await User.create({
+                userName : userName,
+                password : password,
+                email : email,
+                role : 'member',
+                projects : null,
+                teams : null,
+                issues : null,
+                stats: null,
+            })
             console.log(`user has been created!}`);
+            res.send({message : req.body})
         } catch (err) {
             console.log(err);
         }
