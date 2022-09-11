@@ -7,31 +7,30 @@ const User = require('../models/Users');
       return res.redirect('/')
     }
     console.log('WRONG LOGIN INFO')
-    return res.sendFile('index.html')
+    return res.send({message : 'wrong info'})
   }
   
 
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
     if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
-      return res.redirect('/login')
+      
+      return res.send({message : validationErrors})
     }
-    req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
     passport.authenticate('local', (err, user, info) => {
       if (err) { return next(err) }
       if (!user) {
         req.flash('errors', info)
-        return res.redirect('/login')
+        return res.send({errors: info})
       }
       req.logIn(user, (err) => {
         if (err) { return next(err) }
         req.flash('success', { msg: 'Success! You are logged in.' })
-        res.redirect(req.session.returnTo || '/todos')
+        return res.send({user : user})
       })
     })(req, res, next)
   }
@@ -43,7 +42,7 @@ const User = require('../models/Users');
     req.session.destroy((err) => {
       if (err) console.log('Error : Failed to destroy the session during logout.', err)
       req.user = null
-      res.redirect('/')
+      return res.send({logout : 'logout!'})
     })
   }
   
@@ -51,7 +50,7 @@ const User = require('../models/Users');
     if (req.user) {
       return res.redirect('/')
     }
-    return res.redirect('/signup')
+    res.send({message : 'sign up'})
   }
   
   exports.postSignup = (req, res, next) => {
@@ -62,7 +61,7 @@ const User = require('../models/Users');
   
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
-      return res.redirect('../signup')
+      return res.send({message:validationErrors})
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
@@ -79,7 +78,7 @@ const User = require('../models/Users');
       if (err) { return next(err) }
       if (existingUser) {
         req.flash('errors', { msg: 'Account with that email address or username already exists.' })
-        return res.redirect('../signup')
+        return res.send({message:'user already exists'})
       }
       user.save((err) => {
         if (err) { return next(err) }
@@ -87,7 +86,8 @@ const User = require('../models/Users');
           if (err) {
             return next(err)
           }
-          res.redirect('/todos')
+          res.send({request : req.user})
+          // res.redirect('/todos')
         })
       })
     })

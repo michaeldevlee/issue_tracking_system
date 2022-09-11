@@ -1,16 +1,19 @@
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
+
 
 const Login = () => {
+    const navigate = useNavigate();
 
     const [userName , setUserName] = useState('');
     const [password , setPassword] = useState('');
 
     const handleSubmit = async (e) => {
-
+        e.preventDefault();
         const options = {
             method : 'POST',
             body : JSON.stringify({
-                email : userName,
+                userName : userName,
                 password : password,
             }),
             headers : {
@@ -19,8 +22,17 @@ const Login = () => {
         }
 
         const response = await fetch ('/login' , options)
-        console.log(response);
+        const data = await response.json();
+        console.log(data.user);
+        if (data.user){
+            localStorage.setItem('user', JSON.stringify(data))
+        }
+        navigate('/')
+        window.location.reload(false);
+
     }
+    
+
     
     return ( 
         <div>

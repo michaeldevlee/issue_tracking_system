@@ -5,21 +5,22 @@ const SignUp = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [con_pass, setCon_Pass] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = async  (evt)=>{
         evt.preventDefault();
         
-        if (password != con_pass){
-            alert('passwords dont match');
-            return
-        }
+        // if (password != confirmPassword){
+        //     alert('passwords dont match');
+        //     return
+        // }
 
         const options = {
             method : 'POST',
             body : JSON.stringify({
                 userName : userName,
                 password : password,
+                confirmPassword : confirmPassword,
                 email : email,
             }),
             headers:{
@@ -27,7 +28,7 @@ const SignUp = () => {
             }
         }
 
-        const response = await fetch ('/users/createUser', options);
+        const response = await fetch ('/signup', options);
         console.log(await response.json());
 
     }
@@ -39,6 +40,7 @@ const SignUp = () => {
             <div>
                 <label>Username</label>
                 <input 
+                required
                 type="text" 
                 name="username" 
                 id="username"
@@ -47,6 +49,7 @@ const SignUp = () => {
             <div>
                 <label>Email</label>
                 <input 
+                required
                 type="text" 
                 name="email" 
                 id="email"
@@ -55,6 +58,7 @@ const SignUp = () => {
             <div>
                 <label>Password</label>
                 <input 
+                required
                 type="text" 
                 name="password" 
                 id="password" 
@@ -63,10 +67,11 @@ const SignUp = () => {
             <div>
                 <label>Confirm Password</label>
                 <input 
+                required
                 type="text" 
                 name="confirm-password" 
                 id="confirm-password"
-                onChange={(e)=>{setCon_Pass(e.target.value)}} />
+                onChange={(e)=>{setConfirmPassword(e.target.value)}} />
             </div>
             <div>
                 <button type="submit">Sign Up</button>

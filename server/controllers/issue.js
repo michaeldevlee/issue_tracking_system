@@ -3,9 +3,15 @@ const Issue = require('../models/Issues');
 module.exports = {
     getIssue: async (req,res) =>{
         try {
-            console.log(req.body)
-            const issue = await Issue.find({})
-            res.send({message : issue})
+            if (req.user){
+                console.log('authenticated')
+                return res.send({user : req.user})
+            }
+            else{
+                return res.send({error : 'error'})
+            }
+            // const issue = await Issue.find({})
+            
         } catch (error) {
             console.log('failed')
             console.log(error)
