@@ -4,7 +4,26 @@
   height: 100vh;
 }
 
+tr{
+  cursor: pointer;
+}
+
 /*NAVBAR*/
+
+.issue-row{
+  cursor: pointer; 
+}
+
+.issue-row:hover{
+  outline:double;
+  outline-color: lightgray;
+  outline-width: 1px;
+}
+
+.issue-row-active{
+  background-color: chocolate;
+}
+
 
 .navbar {
   display: flex;

@@ -4,6 +4,8 @@ const issuesController = require('../controllers/issue')
 const {ensureAuth} = require('../middleware/auth')
 
 router.get('/getIssue' ,issuesController.getIssue);
+router.get('/getIssues' ,issuesController.getIssues);
+router.post('/getProjects' ,issuesController.getProjects);
 router.post('/createIssue', issuesController.createIssue);
 router.delete('/deleteIssue', issuesController.deleteIssue);
 

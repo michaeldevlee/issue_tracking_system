@@ -19,13 +19,7 @@ function App() {
       <Router>
       <div className="App">
         <Navbar />
-          <div className="pages">
-            <Link to='/'>Dashboard</Link>
-            <Link to="/issues/add">Add</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-          <Routes>  
+      <Routes>  
         <Route path = '/login' element={user ? <Home/>: <Login/>}></Route>
         <Route path ='/issues/add' exact element={user ? <AddIssue/> : <Login/>}/>
         <Route path ='/' exact element= { user ? <Home/> : <Login/>}/>

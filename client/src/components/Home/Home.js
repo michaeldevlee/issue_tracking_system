@@ -1,21 +1,21 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import IssueView from "./IssueView";
 
 const Home = () => {
-    const [userName, setUserName] = useState('some name');
-    const [authenticated , setAuthenticated] = useState(null);
+    const [userName, setUserName] = useState('');
 
-    const handleSubmit = async (e)=> {
+    useEffect(()=>{
         setUserName('Michael')
-    }
+    },[])
+    
+
 
     return (
     <div className="home">
         <p>Welcome {userName}</p>
         <p>Dashboard</p>
-        <button onClick={handleSubmit} >Get user info</button>
+        <IssueView/>
     </div>  
     )
 }

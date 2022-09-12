@@ -1,4 +1,6 @@
 
+import { BrowserRouter as Router, Routes, Route, Switch, Link } from "react-router-dom";
+
 
 const Navbar = () => {
 
@@ -25,9 +27,9 @@ const Navbar = () => {
     return ( 
         <nav className="navbar">
             <div>
-                <button className="navbar-button">Home</button>
-                <button className="navbar-button">Account</button>
-                <button className="navbar-button">Add Issue</button>
+                <Link to='/'><button className="navbar-button">Home</button></Link>
+                <Link to='profile'><button className="navbar-button">Account</button></Link>
+                <Link to ='issues/add'><button className="navbar-button">Add Issue</button></Link>
             </div>
             <div>
                 {authenticated ? <button onClick={handleLogOut} className="navbar-button">Logout</button>: null }

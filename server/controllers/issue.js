@@ -17,22 +17,58 @@ module.exports = {
             console.log(error)
         }
     },
+    getIssues: async (req,res) =>{
+        try {
+            if (req.user){
+                const issues = await Issue.find({author:req.user.userName})
+                console.log('authenticated')
+                return res.send({user : issues})
+            }
+            else{
+                return res.send({error : 'error'})
+            }
+            
+            
+        } catch (error) {
+            console.log('failed')
+            console.log(error)
+        }
+    },
+    getProjects: async (req, res) =>{
+        try {
+            if (req.user){
+                const projects = await Issue.find({projectName:req.body.projectName})
+                console.log(req.body.projectName)
+                return res.send({user : projects})
+            }
+            else{
+                return res.send({error : 'error'})
+            }
+            
+            
+        } catch (error) {
+            console.log('failed')
+            console.log(error)
+        }
+    },
     createIssue: async (req,res)=>{
         try {
-            const {name, description, color} = req.body;
+            const {name, description, author, color, project} = req.body;
             const issue = await Issue.create({
                 title : name, 
                 description : description,
                 color : color,
-                author : 'Michael Lee',
+                project : project,
+                author : author,
                 reviewer : 'None',
-                status : 'Created',
+                comments : 'None',
+                status : 'Under Review',
                 createdAt : Date.now(),
             })
             const data = await issue;
             res.send({issue: data})
         } catch (error) {
-            console.log(error);
+            res.sendStatus(404)
         }
     },
     deleteIssue: async (req,res)=>{

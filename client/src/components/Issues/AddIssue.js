@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import CurrentProjects from "./CurrentProjects";
 
 const TestFunction = ()=>{
 
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [projectName , setprojectName] = useState('');
+    const [projects , setProjects] = useState([]);
     const [color, setColor] = useState('');
-    
+    const author = JSON.parse(localStorage.getItem('user')).user.userName
 
     const handleSubmit = async (evt)=>{
+        
         evt.preventDefault();
         const options ={
             method: "POST",
             body:JSON.stringify({
                 name: name,
                 description: description,
+                project : projectName,
+                author : author,
                 color: color,
             }),
             headers:{
@@ -22,9 +30,31 @@ const TestFunction = ()=>{
         }
 
         const response = await fetch('/issues/createIssue', options );
-        await response.json()
-        
+        const data = await response.json();
+        navigate('/',{replace : true})
 
+
+    }
+
+    useEffect(()=>{
+        const options = {
+            method : 'POST',
+            body: JSON.stringify({projectName : 'test-project'}),
+            headers : {
+                'Content-Type' : 'application/json',
+            }
+        }
+
+        fetch ('/issues/getProjects', options)
+        .then((res)=> res.json())
+        .then((data) => {
+            setProjects(data.user)
+        })
+
+    },[])
+
+    const changeDropDown = (e) =>{
+        console.log(e.target.value)
     }
 
     return(
@@ -46,14 +76,27 @@ const TestFunction = ()=>{
                     name="issue-description" 
                     id="issue-description" 
                     onChange={(e)=>{setDescription(e.target.value)}}>
-                    
                     </textarea>
+                <div>
+                    <label>Project</label>
+                    <select 
+                    required type="select" 
+                    name="project-name" 
+                    id="project-name"
+                    onClick={(e)=>changeDropDown(e)}>
+                        {projects ? projects.map((project)=>{
+                            <div>{project}</div>
+                        }):null}
+                        <option onChange={(e)=>{console.log(e)}} value="add">Add New Project</option>
+                        <option onClick={(e)=>{console.log('new one')}} value=""></option>
+                        </select>
+                </div>
                 </div>
                 <div>
                     <label>Color</label>
                     <div>
                         <input 
-                        onInput={(e)=>{setColor(e.target.value)}} 
+                        onChange={(e)=>{setColor(e.target.value)}} 
                         value="red" 
                         name="color-result" 
                         id="red-color" 

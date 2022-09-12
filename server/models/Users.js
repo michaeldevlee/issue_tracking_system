@@ -15,18 +15,10 @@ const UserSchema = new mongoose.Schema({
     role:{
         type: String,
     },
-    projects:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref:'Projects'
-    },
-    teams:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref:'Teams'
-    },
     issues:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Issues'
-    },
+      type:mongoose.Schema.Types.ObjectId,
+      ref : 'Issues'
+    }, 
     stats:{
         type: String,
     },
