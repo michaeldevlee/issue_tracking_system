@@ -15,6 +15,9 @@ const UserSchema = new mongoose.Schema({
     role:{
         type: String,
     },
+    projects:{
+      type:Object,
+    },
     issues:{
       type:mongoose.Schema.Types.ObjectId,
       ref : 'Issues'

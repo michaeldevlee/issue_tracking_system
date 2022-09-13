@@ -4,9 +4,9 @@ const Issue = require('../models/Issues');
 module.exports = {
     getUser : async (req,res)=>{
         try {
-            const user = await User.find()
+            const user = await User.find({userName : req.user.userName})
             console.log(user)
-            res.send({user : 'confirmed'})
+            res.send({user : user})
         } catch (err) {
             console.log(err)
         }

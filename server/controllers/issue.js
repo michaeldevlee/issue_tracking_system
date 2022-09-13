@@ -38,7 +38,7 @@ module.exports = {
         try {
             if (req.user){
                 const projects = await Issue.find({projectName:req.body.projectName})
-                console.log(req.body.projectName)
+                console.log('authenticated')
                 return res.send({user : projects})
             }
             else{
@@ -53,16 +53,16 @@ module.exports = {
     },
     createIssue: async (req,res)=>{
         try {
-            const {name, description, author, color, project} = req.body;
+            const {name, description, author, color, projectName} = req.body;
             const issue = await Issue.create({
                 title : name, 
                 description : description,
                 color : color,
-                project : project,
+                projectName : projectName,
                 author : author,
                 reviewer : 'None',
                 comments : 'None',
-                status : 'Under Review',
+                status : 'Created',
                 createdAt : Date.now(),
             })
             const data = await issue;
@@ -73,7 +73,7 @@ module.exports = {
     },
     deleteIssue: async (req,res)=>{
         try {
-            const issue = await Issue.deleteOne({_id:"63112e8bd74550f7d070d932"});
+            const issue = await Issue.deleteOne({_id:req.body._id});
             console.log(issue);
             console.log('issue deleted');
             res.send({message : 'deleted'})

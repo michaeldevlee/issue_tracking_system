@@ -1,14 +1,26 @@
 const TableRow = (props) => {
     return ( 
         props.rowsData.map((data) => {
-            const {_id, author, description, status, reviewer, comments,color} = data;
+            const {_id, author, description, status, reviewer, comments,color, projectName} = data;
 
-            const handleSubmit = (e)=>{
-                props.setIssueDesc('HELLO' + _id)
+            const deleteIssue = async  (id)=>{
+                const options = {
+                    method : 'DELETE',
+                    body: JSON.stringify({_id : id}),
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }
+
+                const res = await fetch('/issues/deleteIssue', options)
+                const data = await res.json();
+                console.log(data)
+                window.location.reload(false);
             }
 
+
             return(
-                <tr key={_id} className="issue-row" onClick={handleSubmit}>
+                <tr key={_id} className="issue-row">
                     <td>
                         {color}
                     </td>
@@ -27,6 +39,7 @@ const TableRow = (props) => {
                     <td>
                         {comments}
                     </td>
+                    <td><button onClick={(e)=>{(deleteIssue(_id))}}>X</button></td>
                 </tr>
             )
         })

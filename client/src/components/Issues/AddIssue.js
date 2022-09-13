@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CurrentProjects from "./CurrentProjects";
 
 const TestFunction = ()=>{
 
@@ -8,9 +7,31 @@ const TestFunction = ()=>{
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [projectName , setprojectName] = useState('');
+    const [newProjectName , setNewProjectName] = useState('');
+    const [projectExists , setProjectExists] = useState(false);
     const [projects , setProjects] = useState([]);
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
+
+    const getProjects = async () => {
+        const options = {
+            method : 'GET',
+            headers : {
+                'Content-Type':'application/json',
+            }
+        }
+
+        const response = await fetch ('/users/getUser', options);
+        const data = await response.json();
+        setProjects(data.user[0].projects)
+        console.log(data.user[0].projects);
+    }
+
+    useEffect(()=>{
+        getProjects();
+},[])
+
+
 
     const handleSubmit = async (evt)=>{
         
@@ -20,7 +41,8 @@ const TestFunction = ()=>{
             body:JSON.stringify({
                 name: name,
                 description: description,
-                project : projectName,
+                projectName : projectExists ? projectName : newProjectName,
+                projects : 1,
                 author : author,
                 color: color,
             }),
@@ -36,26 +58,18 @@ const TestFunction = ()=>{
 
     }
 
-    useEffect(()=>{
-        const options = {
-            method : 'POST',
-            body: JSON.stringify({projectName : 'test-project'}),
-            headers : {
-                'Content-Type' : 'application/json',
-            }
+    const setProject = (e)=>{
+        const selection = e.target.options[e.target.selectedIndex].value
+        setprojectName(selection);
+
+        if (selection === "Add New Project"){
+            setProjectExists(false);
         }
-
-        fetch ('/issues/getProjects', options)
-        .then((res)=> res.json())
-        .then((data) => {
-            setProjects(data.user)
-        })
-
-    },[])
-
-    const changeDropDown = (e) =>{
-        console.log(e.target.value)
+        else{
+            setProjectExists(true);
+        }
     }
+
 
     return(
         <div>
@@ -79,17 +93,14 @@ const TestFunction = ()=>{
                     </textarea>
                 <div>
                     <label>Project</label>
-                    <select 
-                    required type="select" 
-                    name="project-name" 
-                    id="project-name"
-                    onClick={(e)=>changeDropDown(e)}>
-                        {projects ? projects.map((project)=>{
-                            <div>{project}</div>
-                        }):null}
-                        <option onChange={(e)=>{console.log(e)}} value="add">Add New Project</option>
-                        <option onClick={(e)=>{console.log('new one')}} value=""></option>
-                        </select>
+                    
+                    <select onChange={setProject} name="" id="">
+                        <option > </option>
+                        <option  value="Add New Project">Add New Project</option>
+                        {projects ? Object.keys(projects).map ((project)=> <option value={project} key={project._id}>{project}</option>):null}
+                        
+                    </select>
+                    <div>{projectName === "Add New Project" ? <div>Project Name<input onChange={(e)=>{setNewProjectName(e.target.value)}}/></div> : null}</div>
                 </div>
                 </div>
                 <div>
