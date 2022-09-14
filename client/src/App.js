@@ -8,6 +8,7 @@ import SignUp from './components/SignUp/SignUp';
 import {UserProvider} from './contexts/userContext'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import ViewIssue from './components/Issues/ViewIssue';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path ='/issues/add' exact element={user ? <AddIssue/> : <Login/>}/>
         <Route path ='/' exact element= { user ? <Home/> : <Login/>}/>
         <Route path ='/signup' element={user ? <Home/> : <SignUp/>}></Route>
+        <Route path ='/view/:id' element={user ? <ViewIssue/> : <Login/>}></Route>
       </Routes>
       </div>
       

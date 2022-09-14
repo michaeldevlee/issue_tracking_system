@@ -1,16 +1,18 @@
 const Issue = require('../models/Issues');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     getIssue: async (req,res) =>{
         try {
             if (req.user){
-                console.log('authenticated')
-                return res.send({user : req.user})
+                const issue = await Issue.find({_id:req.body._id});
+                console.log(issue);
+                return res.send({issue : issue})
             }
             else{
                 return res.send({error : 'error'})
             }
-            // const issue = await Issue.find({})
+            
             
         } catch (error) {
             console.log('failed')
@@ -69,6 +71,17 @@ module.exports = {
             res.send({issue: data})
         } catch (error) {
             res.sendStatus(404)
+        }
+    },
+    updateIssue: async (req,res)=>{
+        try {
+            const issue = await Issue.updateOne({_id:req.body._id});
+            const data = await issue.json();
+            console.log(data);
+            console.log('issue updated');
+            res.send({message : 'updated'})
+        } catch (error) {
+            console.log(error);
         }
     },
     deleteIssue: async (req,res)=>{

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Projects from "../Project/Projects";
 
 const TestFunction = ()=>{
 
@@ -9,11 +10,11 @@ const TestFunction = ()=>{
     const [projectName , setprojectName] = useState('');
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
-    const [projects , setProjects] = useState([]);
+    const [issues , setIssues] = useState([]);
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
 
-    const getProjects = async () => {
+    const getIssues = async () => {
         const options = {
             method : 'GET',
             headers : {
@@ -21,14 +22,13 @@ const TestFunction = ()=>{
             }
         }
 
-        const response = await fetch ('/users/getUser', options);
+        const response = await fetch ('/issues/getIssues', options);
         const data = await response.json();
-        setProjects(data.user[0].projects)
-        console.log(data.user[0].projects);
+        setIssues(data.user)
     }
 
     useEffect(()=>{
-        getProjects();
+        getIssues();
 },[])
 
 
@@ -70,6 +70,18 @@ const TestFunction = ()=>{
         }
     }
 
+    const showProjectOptions = (projects)=>{
+        let hash = {};
+        const projectChoices = Object.keys(projects).map((project)=>{
+            if (hash[project] == null){
+                hash[project] = true;
+                return <option value={project} key={project._id}>{project}</option>;
+            }
+        })
+
+        return projectChoices;
+    }
+
 
     return(
         <div>
@@ -97,7 +109,7 @@ const TestFunction = ()=>{
                     <select onChange={setProject} name="" id="">
                         <option > </option>
                         <option  value="Add New Project">Add New Project</option>
-                        {projects ? Object.keys(projects).map ((project)=> <option value={project} key={project._id}>{project}</option>):null}
+                        {<Projects projects={issues}/>}
                         
                     </select>
                     <div>{projectName === "Add New Project" ? <div>Project Name<input onChange={(e)=>{setNewProjectName(e.target.value)}}/></div> : null}</div>

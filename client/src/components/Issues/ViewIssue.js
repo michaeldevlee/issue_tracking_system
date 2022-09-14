@@ -1,0 +1,64 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+const ViewIssue = () => {
+    const {id}= useParams();
+
+    const [project, setProject]= useState({});
+    const [user , setUser]= useState({});
+
+    const issue_options = {
+        method : 'POST',
+        body: JSON.stringify({_id : id}),
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    const user_options = {
+        method : 'GET',
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    const getIssue = async ()=>{
+        const res = await fetch ('/issues/getIssue', issue_options);
+        const issue = await res.json();
+        setProject(issue.issue[0])
+
+        
+        const user = await fetch('/users/getUser', user_options)
+        const user_data = await user.json();
+        console.log(user_data.user[0]);
+
+        if(project.author == user_data.user[0].userName){
+            setUser(project.author);
+        }
+
+
+    }
+
+    useEffect(()=>{
+        getIssue();
+    },[])
+
+
+    return ( <div>
+        <h1>View Issue #{id}</h1>
+        <h2>title</h2>
+        <p>{project.projectName}</p>
+        <h2>description</h2>
+        <p>{project.description}</p>
+        <h2>reviewer</h2>
+        <p>{project.reviewer}</p>
+        <h2>comments</h2>
+        <p>{project.comments}</p>
+        <h2>status</h2>
+        <p>{project.status}</p>
+        {user ? <button onClick={()=>{console.log('hello')}}>Edit</button>: null}
+    </div> );
+}
+ 
+export default ViewIssue;

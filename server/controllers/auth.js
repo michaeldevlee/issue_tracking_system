@@ -13,23 +13,30 @@ const User = require('../models/Users');
 
   exports.postLogin = (req, res, next) => {
     const validationErrors = []
+    
     if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
-  
+    console.log('password is blank');
     if (validationErrors.length) {
       req.flash('errors', validationErrors)
-      
+      console.log('validation error');
       return res.send({message : validationErrors})
     }
   
     passport.authenticate('local', (err, user, info) => {
+      
       if (err) { return next(err) }
+      
       if (!user) {
-        req.flash('errors', info)
+        console.log('no user');
+        // req.flash('errors', info)
         return res.send({errors: info})
       }
       req.logIn(user, (err) => {
+        console.log('loggin in');
         if (err) { return next(err) }
-        req.flash('success', { msg: 'Success! You are logged in.' })
+        console.log('sending user');
+        console.log(user)
+        // req.flash('success', { msg: 'Success! You are logged in.' })
         return res.send({user : user})
       })
     })(req, res, next)
@@ -55,7 +62,6 @@ const User = require('../models/Users');
   
   exports.postSignup = (req, res, next) => {
     const validationErrors = []
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
     if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' })
     if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' })
   
@@ -63,7 +69,6 @@ const User = require('../models/Users');
       req.flash('errors', validationErrors)
       return res.send({message:validationErrors})
     }
-    req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
   
     const user = new User({
       userName: req.body.userName,

@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import Projects from "../Project/Projects";
 import TableRow from "./IssueRow";
 
 const IssueView = () => {
     const [rowsData, setRowsData] = useState([]);
     const [filter , setFilter] = useState(false);
     const [issueDescription, setIssueDescription] = useState('hello')
-    const [projects , setProjects] = useState([]);
+    const [issues , setIssues] = useState([]);
     const [projectName , setprojectName] = useState('');
 
-    const getProjects = async () => {
+    const getIssues = async () => {
         const options = {
             method : 'GET',
             headers : {
@@ -19,8 +20,7 @@ const IssueView = () => {
 
         const response = await fetch ('/issues/getIssues', options);
         const data = await response.json();
-        setProjects(data.user)
-        console.log(data);
+        setIssues(data.user)
     }
     
 
@@ -38,20 +38,19 @@ const IssueView = () => {
         console.log(data);
     }
 
+
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
-        console.log(filterParams)
     }
 
     const setProject = (e)=>{
         const selection = e.target.options[e.target.selectedIndex].value
         setprojectName(selection);
-        setFilter(selection)
     }
-
+    
     useEffect(()=>{
         addTableRows();
-        getProjects();
+        getIssues();
     },[])
 
 
@@ -61,9 +60,7 @@ const IssueView = () => {
         <button onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
         <button onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>   
         <select onChange={setProject} name="" id="">
-                        {projects ? projects.map((project)=>{
-                            return <option value={project.projectName} key={project._id}>{project.projectName}</option>
-                        }): null}
+                        <Projects projects={issues} />
                     </select>
         <div>
             <table>
@@ -88,7 +85,6 @@ const IssueView = () => {
                         </td>
                     </tr>
                     {filter && projectName ? <TableRow rowsData={rowsData.filter((issue)=>{
-                        console.log(issue.projectName)
             return issue.status === filter && issue.projectName === projectName})}/> : <TableRow rowsData={rowsData} setIssueDesc = {setIssueDescription}/>}
                 </tbody>
             </table>

@@ -8,7 +8,7 @@ module.exports = function (passport) {
       usernameField : 'userName',
       passwordField : 'password',
     }, (username, password, done) => {
-      User.findOne({ username: username.toLowerCase() }, (err, user) => {
+      User.findOne({ userName: username.toLowerCase() }, (err, user) => {
         if (err) { return done(err) }
         if (!user) {
           return done(null, false, { msg: `Username ${username} not found.` })

@@ -20,7 +20,7 @@ const TableRow = (props) => {
 
 
             return(
-                <tr key={_id} className="issue-row">
+                <tr key={_id} className="issue-row" onClick={()=>{window.location.href = `/view/${_id}`}}>
                     <td>
                         {color}
                     </td>

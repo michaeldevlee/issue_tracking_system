@@ -1,21 +1,23 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import IssueView from "./IssueView";
+import IssueWindow from "./IssueWindow";
 
 const Home = () => {
     const [userName, setUserName] = useState('');
 
     useEffect(()=>{
-        setUserName('Michael')
+        const user = localStorage.getItem('user')
+        if (user){
+            setUserName(JSON.parse(user).user.userName)
+        }
+        
     },[])
-    
-
 
     return (
     <div className="home">
         <p>Welcome {userName}</p>
         <p>Dashboard</p>
-        <IssueView/>
+        <IssueWindow/>
     </div>  
     )
 }
