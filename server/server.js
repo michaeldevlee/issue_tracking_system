@@ -11,6 +11,7 @@ const connectDB = require('./config/database');
 const issueRoutes = require('./routes/issues');
 const userRoutes = require('./routes/users')
 const mainRoutes = require('./routes/main')
+const projectRoutes = require('./routes/projects')
 
 // Passport config
 require('./config/passport')(passport)
@@ -39,6 +40,7 @@ app.use(flash())
 
 app.use('/issues', issueRoutes)
 app.use('/users', userRoutes)
+app.use('/projects', projectRoutes)
 app.use('/', mainRoutes)
 
 

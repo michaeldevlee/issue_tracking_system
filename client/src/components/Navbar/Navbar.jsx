@@ -19,7 +19,6 @@ const Navbar = () => {
 
         const response = await fetch ('/logout', options)
         const data = await response.json();
-        console.log(data);
         localStorage.removeItem('user');
         window.location.reload(false);
     }

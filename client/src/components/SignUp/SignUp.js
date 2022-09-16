@@ -29,7 +29,6 @@ const SignUp = () => {
         }
 
         const response = await fetch ('/signup', options);
-        console.log(await response.json());
 
     }
 

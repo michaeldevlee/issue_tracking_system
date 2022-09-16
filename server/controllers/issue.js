@@ -1,4 +1,6 @@
 const Issue = require('../models/Issues');
+const Projects = require('../models/Projects');
+const Users = require('../models/Users');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
@@ -36,26 +38,11 @@ module.exports = {
             console.log(error)
         }
     },
-    getProjects: async (req, res) =>{
-        try {
-            if (req.user){
-                const projects = await Issue.find({projectName:req.body.projectName})
-                console.log('authenticated')
-                return res.send({user : projects})
-            }
-            else{
-                return res.send({error : 'error'})
-            }
-            
-            
-        } catch (error) {
-            console.log('failed')
-            console.log(error)
-        }
-    },
     createIssue: async (req,res)=>{
         try {
             const {name, description, author, color, projectName} = req.body;
+
+            // create the issue
             const issue = await Issue.create({
                 title : name, 
                 description : description,
@@ -67,8 +54,14 @@ module.exports = {
                 status : 'Created',
                 createdAt : Date.now(),
             })
-            const data = await issue;
-            res.send({issue: data})
+
+            //assign to user in projects array
+            const user = await Projects.findOneAndUpdate(
+                {userName : author},
+                {$push: {"issues": issue}}
+                )
+
+            res.send({issue: user})
         } catch (error) {
             res.sendStatus(404)
         }

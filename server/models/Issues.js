@@ -10,9 +10,6 @@ const IssueSchema = new mongoose.Schema({
     projectName:{
         type:String,
     },
-    teamMembers:{
-        type:String,
-    },
     color:{
         type: String,
     },

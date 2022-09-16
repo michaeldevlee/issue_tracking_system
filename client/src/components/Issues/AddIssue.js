@@ -8,13 +8,14 @@ const TestFunction = ()=>{
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [projectName , setprojectName] = useState('');
+    const [projects , setProjects] = useState('');
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
     const [issues , setIssues] = useState([]);
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
 
-    const getIssues = async () => {
+    const getProjects = async () => {
         const options = {
             method : 'GET',
             headers : {
@@ -22,13 +23,13 @@ const TestFunction = ()=>{
             }
         }
 
-        const response = await fetch ('/issues/getIssues', options);
+        const response = await fetch ('/projects/getProjects', options);
         const data = await response.json();
-        setIssues(data.user)
+        setProjects(data.user)
     }
 
     useEffect(()=>{
-        getIssues();
+        getProjects();
 },[])
 
 
@@ -42,7 +43,6 @@ const TestFunction = ()=>{
                 name: name,
                 description: description,
                 projectName : projectExists ? projectName : newProjectName,
-                projects : 1,
                 author : author,
                 color: color,
             }),
@@ -50,10 +50,19 @@ const TestFunction = ()=>{
                 'Content-Type' : 'application/json'
             }
         }
+        if(projectExists){
+            const response = await fetch('/issues/createIssue', options );
+            const data = await response.json();
+            console.log(data)
+            navigate('/',{replace : true})
+        }
+        else{
+            const response = await fetch('/projects/createProject', options );
+            const data = await response.json();
+            console.log(data)
+            navigate('/',{replace : true})
+        }
 
-        const response = await fetch('/issues/createIssue', options );
-        const data = await response.json();
-        navigate('/',{replace : true})
 
 
     }
@@ -68,19 +77,9 @@ const TestFunction = ()=>{
         else{
             setProjectExists(true);
         }
+        
     }
 
-    const showProjectOptions = (projects)=>{
-        let hash = {};
-        const projectChoices = Object.keys(projects).map((project)=>{
-            if (hash[project] == null){
-                hash[project] = true;
-                return <option value={project} key={project._id}>{project}</option>;
-            }
-        })
-
-        return projectChoices;
-    }
 
 
     return(
@@ -109,7 +108,7 @@ const TestFunction = ()=>{
                     <select onChange={setProject} name="" id="">
                         <option > </option>
                         <option  value="Add New Project">Add New Project</option>
-                        {<Projects projects={issues}/>}
+                        {<Projects projects={projects}/>}
                         
                     </select>
                     <div>{projectName === "Add New Project" ? <div>Project Name<input onChange={(e)=>{setNewProjectName(e.target.value)}}/></div> : null}</div>

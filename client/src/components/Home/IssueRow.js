@@ -14,7 +14,6 @@ const TableRow = (props) => {
 
                 const res = await fetch('/issues/deleteIssue', options)
                 const data = await res.json();
-                console.log(data)
                 window.location.reload(false);
             }
 

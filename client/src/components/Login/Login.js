@@ -23,7 +23,6 @@ const Login = () => {
 
         const response = await fetch ('/login' , options)
         const data = await response.json();
-        console.log(data.user);
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
         }

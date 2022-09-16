@@ -5,10 +5,10 @@ import TableRow from "./IssueRow";
 
 const IssueView = () => {
     const [rowsData, setRowsData] = useState([]);
-    const [filter , setFilter] = useState(false);
+    const [filter , setFilter] = useState('Created');
     const [issueDescription, setIssueDescription] = useState('hello')
     const [issues , setIssues] = useState([]);
-    const [projectName , setprojectName] = useState('');
+    const [projectName , setprojectName] = useState("");
 
     const getIssues = async () => {
         const options = {
@@ -26,26 +26,29 @@ const IssueView = () => {
 
     const addTableRows = async () => {
         const options = {
-            method : 'GET',
+            method : 'POST',
+            body: JSON.stringify({projectName:'rrt'}),
             headers : {
                 'Content-Type':'application/json',
             }
         }
 
-        const response = await fetch ('/issues/getIssues', options);
+        const response = await fetch ('/issues/getProjects', options);
         const data = await response.json();
-        setRowsData(data.user)
-        console.log(data);
+
     }
 
 
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
+
     }
 
     const setProject = (e)=>{
         const selection = e.target.options[e.target.selectedIndex].value
         setprojectName(selection);
+        setFilter('Created')
+        
     }
     
     useEffect(()=>{
@@ -60,6 +63,7 @@ const IssueView = () => {
         <button onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
         <button onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>   
         <select onChange={setProject} name="" id="">
+                        <option value=""></option>
                         <Projects projects={issues} />
                     </select>
         <div>
@@ -84,8 +88,6 @@ const IssueView = () => {
                             Comments
                         </td>
                     </tr>
-                    {filter && projectName ? <TableRow rowsData={rowsData.filter((issue)=>{
-            return issue.status === filter && issue.projectName === projectName})}/> : <TableRow rowsData={rowsData} setIssueDesc = {setIssueDescription}/>}
                 </tbody>
             </table>
         </div>

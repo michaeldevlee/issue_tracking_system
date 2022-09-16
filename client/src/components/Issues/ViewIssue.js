@@ -6,7 +6,8 @@ const ViewIssue = () => {
     const {id}= useParams();
 
     const [project, setProject]= useState({});
-    const [user , setUser]= useState({});
+    const [user , setUser]= useState('user');
+    const [author , setAuthor] = useState('author');
 
     const issue_options = {
         method : 'POST',
@@ -31,18 +32,14 @@ const ViewIssue = () => {
         
         const user = await fetch('/users/getUser', user_options)
         const user_data = await user.json();
-        console.log(user_data.user[0]);
-
-        if(project.author == user_data.user[0].userName){
-            setUser(project.author);
-        }
-
+        setUser(user_data.user[0].userName)
+        setAuthor(project.author)
 
     }
 
     useEffect(()=>{
         getIssue();
-    },[])
+    },[user])
 
 
     return ( <div>
@@ -57,7 +54,7 @@ const ViewIssue = () => {
         <p>{project.comments}</p>
         <h2>status</h2>
         <p>{project.status}</p>
-        {user ? <button onClick={()=>{console.log('hello')}}>Edit</button>: null}
+        {user == author ? <button onClick={()=>{console.log('hello')}}>Edit</button>: null}
     </div> );
 }
  
