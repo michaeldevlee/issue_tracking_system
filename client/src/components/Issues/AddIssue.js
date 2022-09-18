@@ -15,21 +15,8 @@ const TestFunction = ()=>{
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
 
-    const getProjects = async () => {
-        const options = {
-            method : 'GET',
-            headers : {
-                'Content-Type':'application/json',
-            }
-        }
-
-        const response = await fetch ('/projects/getProjects', options);
-        const data = await response.json();
-        setProjects(data.user)
-    }
-
     useEffect(()=>{
-        getProjects();
+        
 },[])
 
 
@@ -50,7 +37,7 @@ const TestFunction = ()=>{
                 'Content-Type' : 'application/json'
             }
         }
-        if(projectExists){
+        if(1==2){
             const response = await fetch('/issues/createIssue', options );
             const data = await response.json();
             console.log(data)

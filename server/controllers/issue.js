@@ -1,5 +1,4 @@
 const Issue = require('../models/Issues');
-const Projects = require('../models/Projects');
 const Users = require('../models/Users');
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -56,10 +55,9 @@ module.exports = {
             })
 
             //assign to user in projects array
-            const user = await Projects.findOneAndUpdate(
-                {userName : author},
-                {$push: {"issues": issue}}
-                )
+            const user = await Users.find(
+                {projects:{$elemMatch :{projectName : projectName}}}
+                    )
 
             res.send({issue: user})
         } catch (error) {

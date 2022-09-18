@@ -33,8 +33,6 @@ const IssueView = () => {
             }
         }
 
-        const response = await fetch ('/issues/getProjects', options);
-        const data = await response.json();
 
     }
 
