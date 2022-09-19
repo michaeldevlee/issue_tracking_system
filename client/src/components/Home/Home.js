@@ -1,10 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import IssueWindow from "./IssueWindow";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
+import AddIssueButton from "./IssueViewWindow/AddIssueButton/AddIssueButton";
+import IssueWindow from "./IssueViewWindow/IssueWindow"
+import ProjectList from "./ProjectList/ProjectList";
 
 const Home = () => {
     const [userName, setUserName] = useState('');
     const [projects, setProjects] = useState('');
+    const [currentProjectViewed, setCurrentProjectViewed] = useState('');
+    const navigate = useNavigate();
 
     const getProjects = async () => {
         const options = {
@@ -17,6 +23,7 @@ const Home = () => {
         const response = await fetch ('/users/getUser', options);
         const data = await response.json();
         setProjects(data.user[0].projects)
+        console.log(data.user[0].projects)
     }
 
 
@@ -27,17 +34,17 @@ const Home = () => {
         }
         else{
             localStorage.clear('user');
+            navigate('/login')
         }
-
         getProjects();
         
     },[])
 
     return (
     <div className="home">
-        <p>Welcome {userName}</p>
-        <p>Dashboard</p>
-        <IssueWindow/>
+        <Navbar />
+        <ProjectList projects={projects} setCurrent={setCurrentProjectViewed}/>
+        <IssueWindow projects={projects} currentProjectViewed={currentProjectViewed}/>
     </div>  
     )
 }

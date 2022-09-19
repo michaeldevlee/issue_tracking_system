@@ -42,6 +42,7 @@ module.exports = {
             const {name, description, author, color, projectName} = req.body;
 
             // create the issue
+            console.log('create user')
             const issue = await Issue.create({
                 title : name, 
                 description : description,
@@ -53,14 +54,28 @@ module.exports = {
                 status : 'Created',
                 createdAt : Date.now(),
             })
-
-            //assign to user in projects array
-            const user = await Users.find(
-                {projects:{$elemMatch :{projectName : projectName}}}
+            console.log('assign issue to users existing project')
+            console.log(issue);
+            //assign to user in projects array ONLY WORKS IN V5
+            const user = await Users.updateOne(
+                {userName : req.user.userName,},
+                {$push:
+                    {"projects.$[project].issues" : issue,
+                        }   
+                },
+                {
+                    arrayFilters : [
+                        {
+                            "project.projectName" : projectName,
+                        },
+                        
+                    ]
+                }
                     )
 
             res.send({issue: user})
         } catch (error) {
+            console.log(error)
             res.sendStatus(404)
         }
     },

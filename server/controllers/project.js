@@ -40,16 +40,17 @@ module.exports = {
                 })
 
                 // create new project and assign object id 
-                const project = await Users.findOneAndUpdate(
+                const project = await Users.update(
                     {userName : author},
-                    {
-                        projects :                     
-                        {
+                    {$addToSet : {
+                        projects:{
                             projectName : projectName,
                             author : author,
                             issues : [issue],
-                        }
+                        }                    
+
                     },
+                }
 
                 )
 

@@ -28,7 +28,6 @@ const Navbar = () => {
             <div>
                 <Link to='/'><button className="navbar-button">Home</button></Link>
                 <Link to='profile'><button className="navbar-button">Account</button></Link>
-                <Link to ='issues/add'><button className="navbar-button">Add Issue</button></Link>
             </div>
             <div>
                 {authenticated ? <button onClick={handleLogOut} className="navbar-button">Logout</button>: null }

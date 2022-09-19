@@ -70,7 +70,7 @@ const TestFunction = ()=>{
 
 
     return(
-        <div>
+        <div className="add-issue-modal">
             <h1>Create Issue</h1>
             <form onSubmit={handleSubmit}>
                 <div>

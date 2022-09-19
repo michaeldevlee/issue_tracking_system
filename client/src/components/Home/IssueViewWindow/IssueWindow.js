@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import Projects from "../Project/Projects";
-import TableRow from "./IssueRow";
+import AddIssueButton from "./AddIssueButton/AddIssueButton";
+import Projects from "../../Project/Projects";
+import TableRow from "../IssueViewWindow/IssueRow";
 
-const IssueView = () => {
+
+const IssueView = (props) => {
     const [rowsData, setRowsData] = useState([]);
     const [filter , setFilter] = useState('Created');
     const [issueDescription, setIssueDescription] = useState('hello')
@@ -24,19 +26,6 @@ const IssueView = () => {
     }
     
 
-    const addTableRows = async () => {
-        const options = {
-            method : 'POST',
-            body: JSON.stringify({projectName:'rrt'}),
-            headers : {
-                'Content-Type':'application/json',
-            }
-        }
-
-
-    }
-
-
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
 
@@ -50,45 +39,19 @@ const IssueView = () => {
     }
     
     useEffect(()=>{
-        addTableRows();
         getIssues();
     },[])
 
 
-    return ( <div>
+    return ( <div id="issue-window" className="issue-window-item">
+        <div id="issue-window-top-section">
+            <AddIssueButton projects={props.projects}/>
+            </div>
+            
 
         <button onClick={()=>{showFilteredIssues('Created')}}>Created</button>
         <button onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
         <button onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>   
-        <select onChange={setProject} name="" id="">
-                        <option value=""></option>
-                        <Projects projects={issues} />
-                    </select>
-        <div>
-            <table>
-                <tbody>
-                    <tr id="header-row">
-                        <td>
-                        </td>
-                        <td>
-                            Issue Name
-                        </td>
-                        <td>
-                            Description
-                        </td>
-                        <td>
-                            Status
-                        </td>
-                        <td>
-                            Reviewer
-                        </td>
-                        <td>
-                            Comments
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div>
             <div>
                 <h2>Project</h2>
