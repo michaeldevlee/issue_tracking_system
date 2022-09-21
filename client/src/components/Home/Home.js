@@ -20,10 +20,10 @@ const Home = () => {
             }
         }
 
-        const response = await fetch ('/users/getUser', options);
+        const response = await fetch ('/projects/getProjects', options);
         const data = await response.json();
-        setProjects(data.user[0].projects)
-        console.log(data.user[0].projects)
+        setProjects(data.projects)
+        console.log(data.projects)
     }
 
 

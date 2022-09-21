@@ -11,6 +11,7 @@ const AddIssueModal = (props) => {
     const [projects , setProjects] = useState('');
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
+    const [action , setAction ] = useState("ADD");
     const [issues , setIssues] = useState([]);
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
@@ -24,7 +25,7 @@ const AddIssueModal = (props) => {
     const handleSubmit = async (evt)=>{
         
         evt.preventDefault();
-        const options ={
+        const create_options ={
             method: "POST",
             body:JSON.stringify({
                 name: name,
@@ -32,20 +33,42 @@ const AddIssueModal = (props) => {
                 projectName : projectExists ? projectName : newProjectName,
                 author : author,
                 color: color,
+                new_issue : projectExists,
+                action : action,
+            }),
+            headers:{
+                'Content-Type' : 'application/json'
+            }
+
+            
+        }
+
+        const update_options ={
+            method: "PUT",
+            body:JSON.stringify({
+                name: name,
+                description: description,
+                projectName : projectExists ? projectName : newProjectName,
+                author : author,
+                color: color,
+                new_issue : projectExists,
+                action : action,
             }),
             headers:{
                 'Content-Type' : 'application/json'
             }
         }
         if(projectExists){
-            const response = await fetch('/issues/createIssue', options );
+            const response = await fetch('/projects/updateProject', update_options );
             const data = await response.json();
+            setAction("ADD")
             console.log(data)
             navigate('/',{replace : true})
         }
         else{
-            const response = await fetch('/projects/createProject', options );
+            const response = await fetch('/projects/createProject', create_options );
             const data = await response.json();
+            setAction("NOTHING")
             console.log(data)
             navigate('/',{replace : true})
         }

@@ -4,5 +4,6 @@ const projectController = require('../controllers/project')
 
 router.get('/getProjects', projectController.getProjects)
 router.post('/createProject', projectController.createProject)
+router.put('/updateProject', projectController.updateProject)
 
 module.exports = router

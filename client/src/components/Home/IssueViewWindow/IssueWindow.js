@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Router, Routes, Switch } from "react-router-dom";
 import AddIssueButton from "./AddIssueButton/AddIssueButton";
-import Projects from "../../Project/Projects";
-import TableRow from "../IssueViewWindow/IssueRow";
+import IssueViewBox from "./IssueViewBox/IssueViewBox";
 
 
 const IssueView = (props) => {
@@ -12,19 +12,7 @@ const IssueView = (props) => {
     const [issues , setIssues] = useState([]);
     const [projectName , setprojectName] = useState("");
 
-    const getIssues = async () => {
-        const options = {
-            method : 'GET',
-            headers : {
-                'Content-Type':'application/json',
-            }
-        }
 
-        const response = await fetch ('/issues/getIssues', options);
-        const data = await response.json();
-        setIssues(data.user)
-    }
-    
 
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
@@ -39,7 +27,6 @@ const IssueView = (props) => {
     }
     
     useEffect(()=>{
-        getIssues();
     },[])
 
 
@@ -53,11 +40,21 @@ const IssueView = (props) => {
         <button onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
         <button onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>   
         <div>
+
             <div>
-                <h2>Project</h2>
+                <h2>{props.currentProjectViewed ? props.currentProjectViewed.projectName : null}</h2>
             </div>
             <div>
                 <h2>Description</h2>
+            </div>
+            <div id="issue-view-grid">
+                <div>
+                    <h4>Title</h4>
+                    <h4>Status</h4>
+                    <h4>Author</h4>
+                    <h4>Created At</h4>
+                </div>
+                <IssueViewBox currentProjectViewed={props.currentProjectViewed}/>
             </div>
         </div>
  

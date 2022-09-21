@@ -8,7 +8,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config({path:'./config/.env'});
 const connectDB = require('./config/database');
-const issueRoutes = require('./routes/issues');
 const userRoutes = require('./routes/users')
 const mainRoutes = require('./routes/main')
 const projectRoutes = require('./routes/projects')
@@ -38,7 +37,6 @@ app.use(passport.session())
 app.use(flash())
   
 
-app.use('/issues', issueRoutes)
 app.use('/users', userRoutes)
 app.use('/projects', projectRoutes)
 app.use('/', mainRoutes)

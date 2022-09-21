@@ -7,7 +7,7 @@ const ProjectList = (props) => {
         {props.projects.map((project)=>{
             if (hash[project.projectName] == null){
                 hash[project.projectName] = true;
-                return <p key={project.projectName} >{project.projectName}</p> 
+                return <button onClick={()=>{props.setCurrent(project)}} key={project.projectName}>{project.projectName}</button> 
             }}
         )}
     </div> );

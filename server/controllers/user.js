@@ -1,5 +1,4 @@
 const User = require('../models/Users');
-const Issue = require('../models/Issues');
 
 module.exports = {
     getUser : async (req,res)=>{
