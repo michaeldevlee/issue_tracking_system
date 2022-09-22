@@ -63,6 +63,7 @@ tr{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: white;
 }
 
 .modal-overlay{
@@ -91,6 +92,8 @@ tr{
 
 }
 
+
+
 /*ADD ISSUE SECTION*/
 
 
@@ -107,4 +110,24 @@ tr{
 #add-issue-modal{
   background-color: white;
   z-index: 20;
+}
+
+/*ISSUE VIEW BOX*/
+
+.issue-view-item{
+  display: flex;
+  flex-direction: column;
+}
+
+.issue-view-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#issue-view-legend-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-end;
+  width: 100vw;
 }

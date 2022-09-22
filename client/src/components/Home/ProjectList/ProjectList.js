@@ -7,7 +7,27 @@ const ProjectList = (props) => {
         {props.projects.map((project)=>{
             if (hash[project.projectName] == null){
                 hash[project.projectName] = true;
-                return <button onClick={()=>{props.setCurrent(project)}} key={project.projectName}>{project.projectName}</button> 
+
+                if (project.author == JSON.parse(localStorage.getItem('user')).user.userName){
+                    return <div key={project._id}>
+                    <button 
+                    onClick={()=>{props.setCurrent(project)}} 
+                    key={project.projectName}>
+                        {project.projectName}
+                        </button>
+                        <button>Invite User</button>
+                    </div> 
+                }
+                else{
+                    return <div key={project._id}>
+                    <button 
+                    onClick={()=>{props.setCurrent(project)}} 
+                    key={project.projectName}>
+                        {project.projectName}
+                        </button>
+                    </div>
+                }
+                
             }}
         )}
     </div> );

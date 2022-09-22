@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import AddIssueButton from "./IssueViewWindow/AddIssueButton/AddIssueButton";
 import IssueWindow from "./IssueViewWindow/IssueWindow"
 import ProjectList from "./ProjectList/ProjectList";
 

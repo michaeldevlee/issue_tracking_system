@@ -1,17 +1,24 @@
 const IssueViewBox = (props) => {
+
     return ( 
-    <div>
+    <div className="issue-view-item">
+        <div className="issue-view-row">
+            <h4>Title</h4>
+            <h4>Status</h4>
+            <h4>Author</h4>
+            <h4>Created At</h4>
+        </div>
         <div>
             {props.currentProjectViewed ? props.currentProjectViewed.issues.map((issue)=>{
-                return <a href="" key={issue.createdAt}>
-                    <div>
+                return <div onClick={()=>props.toggleViewBoxStatus(issue)} key={issue.createdAt}>
+
+                    <div className="issue-view-row">
                         <p>{issue.title}</p>
+                        <p>{issue.status}</p>
+                        <p>{issue.author}</p>
+                        <p>{issue.createdAt}</p>
                     </div>
-                    <div>
-                        <p>{issue.description}</p>
                     </div>
-                    
-                    </a>
             }) : null}
             </div>
         </div> );

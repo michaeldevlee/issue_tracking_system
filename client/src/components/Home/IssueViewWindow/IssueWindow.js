@@ -3,32 +3,24 @@ import { useEffect } from "react";
 import { Router, Routes, Switch } from "react-router-dom";
 import AddIssueButton from "./AddIssueButton/AddIssueButton";
 import IssueViewBox from "./IssueViewBox/IssueViewBox";
+import IssueViewModal from "./IssueViewModal/IssueViewModal";
 
 
 const IssueView = (props) => {
-    const [rowsData, setRowsData] = useState([]);
     const [filter , setFilter] = useState('Created');
-    const [issueDescription, setIssueDescription] = useState('hello')
-    const [issues , setIssues] = useState([]);
-    const [projectName , setprojectName] = useState("");
-
-
+    const [viewBoxStatus , setViewBoxStatus] = useState(false);
+    const [currentIssue, setCurrentIssue] = useState(null);
 
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
-
     }
 
-    const setProject = (e)=>{
-        const selection = e.target.options[e.target.selectedIndex].value
-        setprojectName(selection);
-        setFilter('Created')
-        
+    const onIssueClick = (issue)=>{
+        if(localStorage.getItem('user')){
+            setViewBoxStatus(!viewBoxStatus)
+            setCurrentIssue(issue)
+        }
     }
-    
-    useEffect(()=>{
-    },[])
-
 
     return ( <div id="issue-window" className="issue-window-item">
         <div id="issue-window-top-section">
@@ -47,16 +39,17 @@ const IssueView = (props) => {
             <div>
                 <h2>Description</h2>
             </div>
-            <div id="issue-view-grid">
-                <div>
-                    <h4>Title</h4>
-                    <h4>Status</h4>
-                    <h4>Author</h4>
-                    <h4>Created At</h4>
-                </div>
-                <IssueViewBox currentProjectViewed={props.currentProjectViewed}/>
+                <IssueViewBox 
+                currentProjectViewed={props.currentProjectViewed} 
+                toggleViewBoxStatus={onIssueClick} 
+                setCurrentIssue={setCurrentIssue}
+                />
             </div>
-        </div>
+            <IssueViewModal 
+            viewBoxStatus={viewBoxStatus} 
+            toggleViewBoxStatus={onIssueClick} 
+            currentIssue={currentIssue} />
+            
  
     </div> );
 }

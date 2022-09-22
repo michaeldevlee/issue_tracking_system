@@ -8,11 +8,9 @@ const AddIssueModal = (props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [projectName , setprojectName] = useState('');
-    const [projects , setProjects] = useState('');
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
     const [action , setAction ] = useState("ADD");
-    const [issues , setIssues] = useState([]);
     const [color, setColor] = useState('');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
 
@@ -63,14 +61,14 @@ const AddIssueModal = (props) => {
             const data = await response.json();
             setAction("ADD")
             console.log(data)
-            navigate('/',{replace : true})
+            window.location.reload(false);
         }
         else{
             const response = await fetch('/projects/createProject', create_options );
             const data = await response.json();
             setAction("NOTHING")
             console.log(data)
-            navigate('/',{replace : true})
+            window.location.reload(false);
         }
 
     }
