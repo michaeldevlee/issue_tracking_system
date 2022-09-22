@@ -1,4 +1,16 @@
 const ProjectList = (props) => {
+
+    const options = {
+        method : 'PUT',
+        headers : {
+            
+        }
+    }
+
+
+
+
+
     let hash = {};
 
     if (props.projects.length > 0){
@@ -15,7 +27,10 @@ const ProjectList = (props) => {
                     key={project.projectName}>
                         {project.projectName}
                         </button>
-                        <button>Invite User</button>
+                        <button onClick={()=>{
+                            props.setInviteUserModalStatus(true)
+                            props.setCurrent(project)
+                            }} >+</button>
                     </div> 
                 }
                 else{

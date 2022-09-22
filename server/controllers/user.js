@@ -1,6 +1,14 @@
 const User = require('../models/Users');
 
 module.exports = {
+    searchUsers : async (req,res)=>{
+        try {
+            const users = await User.find({userName : {$regex : req.body.userName}})
+            res.send({users : users})
+        } catch (err) {
+            console.log(err)
+        }
+    },
     getUser : async (req,res)=>{
         try {
             const user = await User.find({userName : req.user.userName})
@@ -38,12 +46,4 @@ module.exports = {
             console.log(error)
         }
     },
-    assignIssue : async (req,res)=>{
-        try {
-            await User.updateOne({name : 'Michael'}, {issues :'63112e8bd74550f7d070d932' })
-            console.log('updated Michaels issues')
-        } catch (err) {
-            console.log(err)
-        }
-    }
 }

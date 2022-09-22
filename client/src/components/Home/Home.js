@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import InviteUserModal from "./InviteUserModal/InviteUserModal";
 import IssueWindow from "./IssueViewWindow/IssueWindow"
 import ProjectList from "./ProjectList/ProjectList";
 
@@ -9,6 +10,7 @@ const Home = () => {
     const [userName, setUserName] = useState('');
     const [projects, setProjects] = useState('');
     const [currentProjectViewed, setCurrentProjectViewed] = useState('');
+    const [inviteUserModalStatus , setInviteUserModalStatus] = useState(false);
     const navigate = useNavigate();
 
     const getProjects = async () => {
@@ -42,7 +44,8 @@ const Home = () => {
     return (
     <div className="home">
         <Navbar />
-        <ProjectList projects={projects} setCurrent={setCurrentProjectViewed}/>
+        <InviteUserModal currentProjectViewed={currentProjectViewed} setInviteUserModalStatus={setInviteUserModalStatus} inviteUserModalStatus={inviteUserModalStatus}/>
+        <ProjectList setInviteUserModalStatus={setInviteUserModalStatus} projects={projects} setCurrent={setCurrentProjectViewed}/>
         <IssueWindow projects={projects} currentProjectViewed={currentProjectViewed}/>
     </div>  
     )
