@@ -63,7 +63,7 @@ module.exports = {
         try {
             if (req.user){
                 const {author, name, description, color, projectName, new_issue, new_collaborator, action, issue_identifier} = req.body;
-
+                
                 if (new_issue){
                     if(action == "ADD"){
                             // add new issue
@@ -96,11 +96,12 @@ module.exports = {
                     
                 }
                 else if (new_collaborator){
+                    
                     if(action == "ADD"){
                         // add new collaborator
                         const collaborator_update = await Projects.updateOne(
                             {projectName : projectName,},
-                            {$push:{collaborators : new_collaborator}}
+                            {$addToSet:{collaborators : new_collaborator}}
                             )
                             console.log(collaborator_update);
                     }
@@ -115,8 +116,6 @@ module.exports = {
 
                 }
 
-
-                console.log('new project')
                 return res.send({user : "updated"})
             }
             else{

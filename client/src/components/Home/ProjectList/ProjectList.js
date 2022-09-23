@@ -1,16 +1,5 @@
 const ProjectList = (props) => {
 
-    const options = {
-        method : 'PUT',
-        headers : {
-            
-        }
-    }
-
-
-
-
-
     let hash = {};
 
     if (props.projects.length > 0){
