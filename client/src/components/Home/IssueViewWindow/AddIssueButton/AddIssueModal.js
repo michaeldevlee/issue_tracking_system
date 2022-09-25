@@ -11,11 +11,11 @@ const AddIssueModal = (props) => {
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
     const [action , setAction ] = useState("ADD");
-    const [color, setColor] = useState('');
+    const [color, setColor] = useState('FF0069');
     const author = JSON.parse(localStorage.getItem('user')).user.userName
 
     const handleClose = (e)=>{
-        if(e.target.classList.contains('modal-overlay')){
+        if(e.target.classList.contains('modal-overlay') || e.target.classList.contains('exit-modal-button')){
             props.setStatus(false)
         }
     }
@@ -89,69 +89,60 @@ const AddIssueModal = (props) => {
     if (props.status == true){
         return ( <div className="modal-overlay" onClick={(e)=>handleClose(e)}>
             <div id="add-issue-modal"  className="modal">
-                <h1>Add Issue</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Title</label>
-                        <input 
-                        required type="text" 
-                        name="issue-name" 
-                        id="issue-name"
-                        onChange={(e)=>setName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label>Description</label>
-                        <input                     
-                        required type="text" 
-                        name="issue-description" 
-                        id="issue-description" 
-                        onChange={(e)=>{setDescription(e.target.value)}}
-                        />
-                    </div>
-                    <div>
-                        <label>Project</label>
-                        <select onChange={(e)=>setProject(e)} required name="" id="">
-                            <option > </option>
-                            <option  value="Add New Project">Add New Project</option>
-                            <Projects projects={props.projects}/>
-                        </select>
-                        <div>{projectName === "Add New Project" ? <div>Project Name<input onChange={(e)=>{setNewProjectName(e.target.value)}}/></div> : null}</div>
-                    </div>
-                    <div>
-                        <label>Color</label>
+                <button onClick={(e)=>handleClose(e)} className="exit-modal-button">X</button>
+                <div className="add-issue-modal-container"> 
+                    <h1>Add Issue</h1>
+                    <form onSubmit={handleSubmit}>
                         <div>
-                            <input 
-                            onChange={(e)=>{setColor(e.target.value)}}
-                            value="red"
-                            name="color-result"
-                            id="red-color"
-                            type="radio" />
+                            <label>Title</label>
                             <input
-                            onInput={(e)=>{setColor(e.target.value)}}
-                            value="blue"
-                            name="color-result"
-                            id="blue-color"
-                            type="radio" />
-                            <input
-                            onInput={(e)=>{setColor(e.target.value)}}
-                            value="green"
-                            name="color-result"
-                            id="green-color"
-                            type="radio" />
-                            <input
-                            onInput={(e)=>{setColor(e.target.value)}}
-                            value="yellow"
-                            name="color-result"
-                            id="yellow-color"
-                            type="radio" />
+                            className="text-field"
+                            required type="text"
+                            name="issue-name"
+                            id="issue-name"
+                            onChange={(e)=>setName(e.target.value)}/>
                         </div>
                         <div>
-                    <button type="submit" >Close</button>
-                    <button type="" >Clear</button>
+                            <label>Description</label>
+                            <textarea
+                            className="text-field"
+                            required type="text"
+                            name="issue-description"
+                            id="issue-description"
+                            maxLength={"150"}
+                            rows="5"
+                            onChange={(e)=>{setDescription(e.target.value)}}
+                            />
                         </div>
-                    </div>
-                    
-                </form>
+                        <div>
+                            <label>Project</label>
+                            <select 
+                            onChange={(e)=>setProject(e)} 
+                            required
+                            className="drop-down w-100 position-static"
+                            >
+                                <option > </option>
+                                <option  value="Add New Project">Add New Project</option>
+                                <Projects projects={props.projects}/>
+                            </select>
+                            <div>{projectName === "Add New Project" ? <div>Project Name<input onChange={(e)=>{setNewProjectName(e.target.value)}}/></div> : null}</div>
+                        </div>
+                        <div>
+                            
+                        <div className="color-picker-container">
+                            <button onClick={(e)=>setColor(e.target.value)} className="color-picker" id="red-color-option" type="button" value={"FF0069"}></button>
+                            <button onClick={(e)=>setColor(e.target.value)} className="color-picker" id="green-color-option" type="button" value={"4AFF86"}></button>
+                            <button onClick={(e)=>setColor(e.target.value)} className="color-picker" id="blue-color-option" type="button" value={"4A78FF"}></button>
+                            <button onClick={(e)=>setColor(e.target.value)} className="color-picker" id="yellow-color-option" type="button" value={"FFEF2B"}></button>
+                            <button onClick={(e)=>setColor(e.target.value)} className="color-picker" id="purple-color-option" type="button" value={"D58AFE"}></button>
+                            </div>
+                        </div>
+                        <div className="add-modal-buttons">
+                        <button className="add-issue-submit-button" type="submit" >Add</button>
+                        <input type={"reset"} className="add-issue-clear-button" value={'Clear'}></input>
+                            </div>
+                    </form>
+                </div>
 
                 
             </div>

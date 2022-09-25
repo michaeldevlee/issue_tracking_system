@@ -39,13 +39,13 @@ const UserList = (props) => {
     return ( <div>
         {props.users.map((user)=>{
         return (
-        <div key={user.userName}>
+        <div key={user.userName} className="user-result">
             <p>{user.userName}</p>
             {!props.currentProjectViewed.collaborators.includes(user.userName) ? 
-            <button onClick={(e)=>{
+            <button className="invite-button" onClick={(e)=>{
                 handleAdd(e, user.userName)
             }}>Add</button>:
-            <button disabled={true}>Joined</button>}
+            <button className="invite-button" disabled={true}>Joined</button>}
             
         </div>
         

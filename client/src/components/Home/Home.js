@@ -43,10 +43,15 @@ const Home = () => {
 
     return (
     <div className="home">
-        <Navbar />
-        <InviteUserModal currentProjectViewed={currentProjectViewed} setInviteUserModalStatus={setInviteUserModalStatus} inviteUserModalStatus={inviteUserModalStatus}/>
-        <ProjectList setInviteUserModalStatus={setInviteUserModalStatus} projects={projects} setCurrent={setCurrentProjectViewed}/>
+        <div className="fixed-area">
+            <Navbar />
+            <ProjectList setInviteUserModalStatus={setInviteUserModalStatus} projects={projects} setCurrent={setCurrentProjectViewed}/>
+        </div>
+        <div className="home-placeholder">
+
+        </div>
         <IssueWindow projects={projects} currentProjectViewed={currentProjectViewed}/>
+        <InviteUserModal currentProjectViewed={currentProjectViewed} setInviteUserModalStatus={setInviteUserModalStatus} inviteUserModalStatus={inviteUserModalStatus}/>
     </div>  
     )
 }

@@ -2,7 +2,7 @@ const IssueViewBox = (props) => {
 
     return ( 
     <div className="issue-view-item">
-        <div className="issue-view-row">
+        <div className="issue-view-legend-row">
             <h4>Title</h4>
             <h4>Status</h4>
             <h4>Author</h4>

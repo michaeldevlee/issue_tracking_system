@@ -4,31 +4,36 @@ const ProjectList = (props) => {
 
     if (props.projects.length > 0){
         return ( <div className="project-list">
-        <h1>Project List</h1>
+            <div className="search-bar">
+                <button>+</button>
+                <input  type="text" />
+            </div>
         {props.projects.map((project)=>{
             if (hash[project.projectName] == null){
                 hash[project.projectName] = true;
 
                 if (project.author == JSON.parse(localStorage.getItem('user')).user.userName){
-                    return <div key={project._id}>
-                    <button 
-                    onClick={()=>{props.setCurrent(project)}} 
+                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrent(project)}} >
+                    <p
+                    className="project-link"
                     key={project.projectName}>
                         {project.projectName}
-                        </button>
-                        <button onClick={()=>{
+                        </p>
+                        <p className="project-options"
+                        onClick={()=>{
                             props.setInviteUserModalStatus(true)
                             props.setCurrent(project)
-                            }} >+</button>
+                            }} >...</p>
                     </div> 
                 }
                 else{
-                    return <div key={project._id}>
-                    <button 
-                    onClick={()=>{props.setCurrent(project)}} 
+                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrent(project)}} >
+                    <p 
+                    className="project-link"
+                    
                     key={project.projectName}>
                         {project.projectName}
-                        </button>
+                        </p>
                     </div>
                 }
                 

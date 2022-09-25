@@ -7,8 +7,9 @@ const InviteUserModal = (props) => {
     const [users , setUsers] = useState('');
 
     const handleClose = (e)=>{
-        if(e.target.classList.contains('modal-overlay')){
+        if(e.target.classList.contains('modal-overlay') || e.target.classList.contains('exit-modal-button')){
             props.setInviteUserModalStatus(false)
+            setUsers('')
         }
     }
 
@@ -35,16 +36,20 @@ const InviteUserModal = (props) => {
 
     if (props.inviteUserModalStatus){
         return ( <div className="modal-overlay" onClick={(e)=>handleClose(e)}>
-        <div className="modal">
+        <div className="modal" id="invite-user-modal">
+            <button onClick={(e)=>handleClose(e)} className="exit-modal-button">X</button>
             <form onSubmit={(e)=>{searchUser(e)}}>
                 <h2>Invite</h2>
-                <div>
-                    <label >Username</label>
+                <label >Username</label>
+                <div id="invite-user-search-bar">
                     <input type="text" onChange={(e)=>setUserName(e.target.value)}/>
+                    <button>Search</button>
                 </div>
-                <button>Search</button>
+                
             </form>
-            {users ? <UserList users={users} currentProjectViewed={props.currentProjectViewed}/> : null}
+            <div className="user-search-results">
+                {users ? <UserList users={users} currentProjectViewed={props.currentProjectViewed}/> : null}
+                </div>
 
             </div>
         </div> )

@@ -26,11 +26,12 @@ const Navbar = () => {
     return ( 
         <nav className="navbar">
             <div>
-                <Link to='/'><button className="navbar-button">Home</button></Link>
-                <Link to='profile'><button className="navbar-button">Account</button></Link>
+                <h1>ProtoFast</h1>
+                <Link to='/'><p className="navbar-button">Dashboard</p></Link>
+                <Link to='profile'><p className="navbar-button">Account</p></Link>
             </div>
             <div>
-                {authenticated ? <button onClick={handleLogOut} className="navbar-button">Logout</button>: null }
+                {authenticated ? <p onClick={handleLogOut} className="navbar-button">Logout</p>: null }
                 
             </div>
         </nav>

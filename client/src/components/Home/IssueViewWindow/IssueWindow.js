@@ -26,29 +26,37 @@ const IssueView = (props) => {
         <div id="issue-window-top-section">
             <AddIssueButton projects={props.projects}/>
             </div>
-            
 
-        <button onClick={()=>{showFilteredIssues('Created')}}>Created</button>
-        <button onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
-        <button onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>   
+            <div>
+                <hr className="rounded" />
+            </div>
         <div>
 
-            <div>
-                <h2>{props.currentProjectViewed ? props.currentProjectViewed.projectName : null}</h2>
+            <div id="issue-window-mid-section">
+                <div id="issue-window-project-name">
+                    <h2>Project Name</h2>
+                    <p>{props.currentProjectViewed ? props.currentProjectViewed.projectName : null}</p>
+                </div>
+                <div id="issue-window-project-description">
+                    <h2>Description</h2>
+                    <p>{props.currentProjectViewed.description}</p>
+                </div>
+                <div className="filter-button-container">
+                    <button className="filter-button" onClick={()=>{showFilteredIssues('Created')}}>Created</button>
+                    <button className="filter-button" onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
+                    <button className="filter-button" onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>
+                </div>
+                    <IssueViewBox
+                    currentProjectViewed={props.currentProjectViewed}
+                    toggleViewBoxStatus={onIssueClick}
+                    setCurrentIssue={setCurrentIssue}
+                    />
+                </div>
+                <IssueViewModal
+                viewBoxStatus={viewBoxStatus}
+                toggleViewBoxStatus={onIssueClick}
+                currentIssue={currentIssue} />
             </div>
-            <div>
-                <h2>Description</h2>
-            </div>
-                <IssueViewBox 
-                currentProjectViewed={props.currentProjectViewed} 
-                toggleViewBoxStatus={onIssueClick} 
-                setCurrentIssue={setCurrentIssue}
-                />
-            </div>
-            <IssueViewModal 
-            viewBoxStatus={viewBoxStatus} 
-            toggleViewBoxStatus={onIssueClick} 
-            currentIssue={currentIssue} />
             
  
     </div> );

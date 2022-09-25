@@ -11,9 +11,9 @@ const AddIssueButton = (props) => {
         }
     }
 
-    return ( <div id="add-issue-button">
-        <h2>Your Issue Tracker</h2>
-        <button onClick={()=>handleClick()}>Add Issue</button>
+    return ( <div id="dashboard-top">
+        <h2>Dashboard</h2>
+        <button className="add-issue-btn" onClick={()=>handleClick()}>Add Issue</button>
         <AddIssueModal projects={props.projects} setStatus={setStatus} status={status}/>
     </div> );
 }

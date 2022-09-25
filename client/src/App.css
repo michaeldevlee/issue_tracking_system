@@ -4,6 +4,15 @@
   height: 100vh;
 }
 
+h1{
+  font-size: 1.5rem;
+}
+
+a{
+  text-decoration: none;
+  color: #80c3f3;
+}
+
 tr{
   cursor: pointer;
 }
@@ -30,87 +39,297 @@ tr{
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  width: 100px;
-  background-color: salmon;
+  width: 100%;
+  background-color: #0F5298;
+  padding-left: 1em;
+  font-weight: bold;
+  color: cornflowerblue;
 }
 
 .navbar-button{
-  height: 100px;
-  width: 100%;
-  background-color: transparent;
   border: none;
+  color: #80c3f3;
+  text-decoration: none;
+  padding: 1em;
+  border-radius: 0.15rem;
+  transition: all 0.2s;
 }
 
-.home{
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  width: 100vw;
+.navbar-button:hover{
+  background-color: #F1B690;
+  color: #2565AE;
+}
+
+.navbar h1{
+  color: #F1B690
+}
+
+/*PROJECT LIST*/
+
+.project-list h1{
+  text-align: center;
+}
+
+.project-list p {
+  display: inline-block;
 }
 
 .project-list{
-  background-color: lightsalmon;
+  display: flex;
+  flex-direction: column;
+  background-color: #2565AE;
+  font-weight: bold;
+  color: #4b93e4;
+  width: 100%;
+}
+
+.project-list h3{
+  margin-left: 0.25em;
+}
+
+.search-bar{
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  margin: 1em 0em;
+}
+
+.search-bar input{
+  white-space: normal;
+}
+
+.project-tab{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  transition: all 0.2s;
+  margin-left: 1em;
+  border-radius: 0.15rem;
+  cursor: pointer;
+}
+
+.project-tab:hover{
+  background-color: white;
+  color: #2565AE;
+}
+
+.project-options{
+  padding-right: 1em;
+}
+
+.project-link{
+  margin-left: 0.25em;
 }
 
 /*MODALS*/
 
 .modal{
-  position: absolute;
-  width: 600px;
-  height: 400px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  height: 70vh;
   bottom: 0;
   right: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  border-radius: 0.15rem;
+}
+
+.modal h1{
+  margin: 0;
 }
 
 .modal-overlay{
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: rgba(100, 100, 100, 0.6);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+}
+
+.exit-modal-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
 }
 
 /*HOME*/
 
+.home{
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f5fdff;
+}
+
+.home-placeholder{
+  width: 35vw;
+}
+
+.fixed-area{
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 30%;
+}
+
 #issue-window-top-section{
   display: flex;
   flex-direction: column;
+  margin-bottom: 2em;
 }
 
 #issue-window{
+  width: 70%;
+  justify-content: end;
+  padding: 1em;
+  background-color: #f5fdff;
+}
+
+.filter-button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  justify-items: center;
   width: 100%;
+  margin-bottom: 1em;
 }
 
-.issue-window-item{
+.filter-button{
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color:lightgray;
+  color: black;
+  border-radius: 0.15rem;
 
 }
-
-
 
 /*ADD ISSUE SECTION*/
 
 
-#add-issue-button{
+#dashboard-top{
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-#add-issue-button button{
+.add-issue-btn{
   width: 200px;
   height: 50px;
+  border: none;
+  background-color: #0F5298;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.15rem;
 }
+
 
 #add-issue-modal{
   background-color: white;
   z-index: 20;
 }
+
+#add-issue-modal h1{
+  text-align: center;
+}
+
+#add-issue-modal form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.text-field, .drop-down{
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.add-issue-clear-button{
+  background-color: darkgray;
+  width: 150px;
+  height: 50px;
+  border: none;
+  margin: 1rem;
+  color: white;
+  border-radius: 0.15rem;
+
+}
+
+.add-issue-submit-button{
+  background-color:#0F5298;
+  width: 150px;
+  height: 50px;
+  border: none;
+  margin: 1rem;
+  color: white;
+  border-radius: 0.15rem;
+}
+
+.color-picker-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.color-picker{
+  width: 4em;
+  height: 1.5em;
+  border-radius: 0.15rem;
+  border: none;
+}
+
+.color-picker:focus,
+.color-picker:active{
+  border: solid;
+  border-width: 3px;
+  border-color:#0F5298;
+}
+
+#red-color-option{
+  background-color: #FF0069;
+  
+}
+
+#green-color-option{
+  background-color: #4AFF86;
+
+}
+
+#blue-color-option{
+  background-color: #4A78FF;
+
+}
+
+#yellow-color-option{
+  background-color: #FFEF2B;
+
+}
+
+#purple-color-option{
+  background-color: #D58AFE;
+
+}
+
+
+.color-option{
+  width: 1em;
+}
+
+
 
 /*ISSUE VIEW BOX*/
 
@@ -122,12 +341,87 @@ tr{
 .issue-view-row{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  cursor: pointer;
+  padding-left: 0.5em;
+  border-radius: 0.5rem;
+  height: 5em;
+  background-color: white;
 }
 
-#issue-view-legend-row{
+.issue-view-row:hover{
+  background-color: #d5eeff;
+}
+
+.issue-view-legend-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-left: 1em;
+  border: solid;
+  border-width: 1px;
+  background-color:#2565AE;
+  color: white;
+  border-radius: 0.5rem;
+  
+}
+
+#issue-window-mid-section{
+  margin-top: 2em;
+}
+
+#issue-window-project-description{
+  height: 20vh;
+}
+
+hr.rounded {
+  border-radius: 5px;
+}
+
+/* INVITE MODAL*/
+
+#invite-user-modal{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 2em;
+  width: 30vw;
+}
+
+#invite-user-search-bar{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: flex-end;
-  width: 100vw;
+  width: 20vw;
+}
+
+#invite-user-modal h2{
+  text-align: center;
+}
+
+#invite-user-modal input{
+  padding: 0.5rem;
+}
+
+#invite-user-modal button{
+  padding: 0.5rem;
+}
+
+.user-search-results{
+  height: 40vh;
+  width: 60%;
+  background-color: rgba(100, 100, 100, 0.05);
+  border: solid;
+  border-width: 1px;
+  margin-top: 2em;
+  text-align: left;
+  padding: 0em 2em;
+}
+
+.user-result{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 2rem;
 }
