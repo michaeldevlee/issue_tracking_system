@@ -13,6 +13,7 @@ const AddIssueButton = (props) => {
 
     return ( <div id="dashboard-top">
         <h2>Dashboard</h2>
+
         <button className="add-issue-btn" onClick={()=>handleClick()}>Add Issue</button>
         <AddIssueModal projects={props.projects} setStatus={setStatus} status={status}/>
     </div> );

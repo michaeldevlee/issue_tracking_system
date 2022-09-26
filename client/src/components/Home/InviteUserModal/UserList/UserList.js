@@ -18,7 +18,7 @@ const UserList = (props) => {
         method : 'PUT',
         body : JSON.stringify({
           new_collaborator : newCollaborator,
-          projectName : props.currentProjectViewed.projectName,
+          project_id : props.currentProjectViewed._id,
           action : 'ADD',  
         }),
         headers : {

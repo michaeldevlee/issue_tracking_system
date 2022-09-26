@@ -8,6 +8,7 @@ const AddIssueModal = (props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [projectName , setprojectName] = useState('');
+    const [projectId , setProjectId] = useState('');
     const [newProjectName , setNewProjectName] = useState('');
     const [projectExists , setProjectExists] = useState(false);
     const [action , setAction ] = useState("ADD");
@@ -28,6 +29,7 @@ const AddIssueModal = (props) => {
             body:JSON.stringify({
                 name: name,
                 description: description,
+                project_id: projectId,
                 projectName : projectExists ? projectName : newProjectName,
                 author : author,
                 color: color,
@@ -46,6 +48,7 @@ const AddIssueModal = (props) => {
             body:JSON.stringify({
                 name: name,
                 description: description,
+                project_id: projectId,
                 projectName : projectExists ? projectName : newProjectName,
                 author : author,
                 color: color,
@@ -76,6 +79,7 @@ const AddIssueModal = (props) => {
     const setProject = (e)=>{
         const selection = e.target.options[e.target.selectedIndex].value
         setprojectName(selection);
+        setProjectId(e.target.options[e.target.selectedIndex].id)
 
         if (selection === "Add New Project"){
             setProjectExists(false);

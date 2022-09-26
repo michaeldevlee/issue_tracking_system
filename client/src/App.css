@@ -114,11 +114,18 @@ tr{
 }
 
 .project-options{
+  position: relative;
   padding-right: 1em;
 }
 
 .project-link{
   margin-left: 0.25em;
+}
+
+.options-menu{
+  position: absolute;
+  right : 0;
+  background-color: white;
 }
 
 /*MODALS*/
@@ -377,6 +384,7 @@ tr{
 
 hr.rounded {
   border-radius: 5px;
+  margin: 2em 0em;
 }
 
 /* INVITE MODAL*/

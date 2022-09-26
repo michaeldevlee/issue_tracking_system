@@ -7,7 +7,7 @@ const Projects = (props) => {
             let name = props.projects[i].projectName;
             if (!hash[name]){
                 hash[name] = true;
-                projectCategories.push(<option key={props.projects[i]._id} >{name}</option>);
+                projectCategories.push(<option id={props.projects[i]._id} key={props.projects[i]._id} >{name}</option>);
     
             }
         }}

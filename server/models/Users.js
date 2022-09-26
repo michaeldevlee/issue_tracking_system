@@ -12,6 +12,12 @@ const UserSchema = new mongoose.Schema({
     email:{
       type:String,
     },
+    sentInvites:{
+      type:Array,
+    },
+    receivedInvites:{
+      type:Array,
+    },
     role:{
         type: String,
     },

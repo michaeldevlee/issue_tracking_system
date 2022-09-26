@@ -62,16 +62,18 @@ module.exports = {
     updateProject: async (req, res) =>{
         try {
             if (req.user){
-                const {author, name, description, color, projectName, new_issue, new_collaborator, action, issue_identifier} = req.body;
+                const {author, name, description, color, projectName, project_id, new_issue, new_collaborator, action, issue_identifier} = req.body;
+                console.log(issue_identifier)
+                console.log(project_id)
                 
                 if (new_issue){
                     if(action == "ADD"){
                             // add new issue
                         const issue_id = new ObjectId();
                         const issue_update = await Projects.updateOne(
-                        {projectName : projectName,},
+                        {_id : ObjectId(project_id),},
                         {$push:{issues : {
-                            id : issue_id,
+                            id : issue_id.toString(),
                             title: name,
                             projectName : projectName,
                             description : description,
@@ -84,23 +86,25 @@ module.exports = {
                         }}}
                         )
                         console.log(issue_update);
-                    }
-                    else if (issue_identifier){
+                    }   
+                }
+                else if (issue_identifier){
                         // delete issue
+                        console.log('deleting issue')
                         const issue_update = await Projects.updateOne(
-                            {projectName : projectName,},
-                            {$pull:{issues : {id : issue_identifier}}}
+                            {_id : ObjectId(project_id),},
+                            {$pull:{issues : {id : ObjectId(issue_identifier)}}}
                             )
                             console.log(issue_update);
                     }
                     
-                }
+                
                 else if (new_collaborator){
                     
                     if(action == "ADD"){
                         // add new collaborator
                         const collaborator_update = await Projects.updateOne(
-                            {projectName : projectName,},
+                            {_id : ObjectId(project_id),},
                             {$addToSet:{collaborators : new_collaborator}}
                             )
                             console.log(collaborator_update);
@@ -108,7 +112,7 @@ module.exports = {
                     else{
                         // remove collaborator
                         const collaborator_remove = await Projects.updateOne(
-                            {projectName : projectName,},
+                            {_id : ObjectId(project_id),},
                             {$pull:{collaborators : new_collaborator}}
                             )
                             console.log(collaborator_remove);
@@ -117,6 +121,24 @@ module.exports = {
                 }
 
                 return res.send({user : "updated"})
+            }
+            else{
+                return res.send({error : 'error'})
+            }
+
+        } catch (error) {
+            console.log('failed')
+            console.log(error)
+        }
+    },
+    deleteProject: async (req, res) =>{
+        try {
+            if (req.user){
+                const projects = await Projects.remove(
+                    {_id : req.body.id},
+                )
+                console.log(projects)
+                return res.send({projects : 'deleted'})
             }
             else{
                 return res.send({error : 'error'})

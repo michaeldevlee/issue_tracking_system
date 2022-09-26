@@ -30,8 +30,11 @@ const Navbar = () => {
                 <Link to='/'><p className="navbar-button">Dashboard</p></Link>
                 <Link to='profile'><p className="navbar-button">Account</p></Link>
             </div>
+            
             <div>
-                {authenticated ? <p onClick={handleLogOut} className="navbar-button">Logout</p>: null }
+            {authenticated ? <p onClick={handleLogOut} className="navbar-button">Logout</p>: null }
+            <p>{JSON.parse(localStorage.getItem('user')).user.userName}</p>
+                
                 
             </div>
         </nav>

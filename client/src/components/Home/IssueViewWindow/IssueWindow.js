@@ -11,6 +11,11 @@ const IssueView = (props) => {
     const [viewBoxStatus , setViewBoxStatus] = useState(false);
     const [currentIssue, setCurrentIssue] = useState(null);
 
+    const currentAuthor = JSON.parse(localStorage.getItem('user')).user.userName;
+    const author = props.currentProjectViewed.author
+
+    console.log(author)
+
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
     }
@@ -20,6 +25,42 @@ const IssueView = (props) => {
             setViewBoxStatus(!viewBoxStatus)
             setCurrentIssue(issue)
         }
+    }
+
+    const handleDelete = async ()=>{
+        const options = {
+            method : 'DELETE',
+            body : JSON.stringify({
+                id : props.currentProjectViewed._id
+            }),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        }
+
+        const response = await fetch('projects/deleteProject', options)
+        const data = await response.json();
+        console.log(data)
+        window.location.reload(false)
+    }
+
+    const handleLeaveProject = async ()=>{
+        const options = {
+            method : 'PUT',
+            body : JSON.stringify({
+                new_collaborator : currentAuthor,
+                project_id : props.currentProjectViewed._id,
+                action : 'DELETE',
+            }),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        }
+
+        const response = await fetch('projects/updateProject', options)
+        const data = await response.json();
+        console.log(data)
+        window.location.reload(false)
     }
 
     return ( <div id="issue-window" className="issue-window-item">
@@ -41,11 +82,17 @@ const IssueView = (props) => {
                     <h2>Description</h2>
                     <p>{props.currentProjectViewed.description}</p>
                 </div>
+
+                <div>
+                    <hr className="rounded" />
+                </div>
+                
                 <div className="filter-button-container">
                     <button className="filter-button" onClick={()=>{showFilteredIssues('Created')}}>Created</button>
                     <button className="filter-button" onClick={()=>{showFilteredIssues('Under Review')}}>Under Review</button>
                     <button className="filter-button" onClick={()=>{showFilteredIssues('Completed')}}>Completed</button>
                 </div>
+
                     <IssueViewBox
                     currentProjectViewed={props.currentProjectViewed}
                     toggleViewBoxStatus={onIssueClick}
@@ -55,7 +102,15 @@ const IssueView = (props) => {
                 <IssueViewModal
                 viewBoxStatus={viewBoxStatus}
                 toggleViewBoxStatus={onIssueClick}
-                currentIssue={currentIssue} />
+                currentIssue={currentIssue}
+                currentProject={props.currentProjectViewed}
+                />
+
+                <div>
+                    {currentAuthor == author ? <button onClick={()=>handleDelete()}> Delete Project</button> : null}
+                    {currentAuthor != author && props.currentProjectViewed ? <button onClick={()=>handleLeaveProject()}> Leave Project</button> : null}
+                </div>
+
             </div>
             
  

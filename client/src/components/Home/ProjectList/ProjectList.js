@@ -23,7 +23,7 @@ const ProjectList = (props) => {
                         onClick={()=>{
                             props.setInviteUserModalStatus(true)
                             props.setCurrent(project)
-                            }} >...</p>
+                            }} >+</p>
                     </div> 
                 }
                 else{
