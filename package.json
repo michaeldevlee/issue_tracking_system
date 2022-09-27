@@ -4,9 +4,8 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "install": "concurrently \"cd ./server && npm i\" \"cd ./client && npm i\"",
     "server": "node server/server.js",
-    "client": "npm run start --prefix client",
+    "client": "npm run build --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
