@@ -4,6 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
+    "install": "concurrently \"cd ./server && npm i\" \"cd ./client && npm i\"",
     "server": "node server/server.js",
     "client": "npm run start --prefix client",
     "start": "concurrently \"npm run server\" \"npm run client\""
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/michaeldevlee/issue_tracking_system#readme",
   "dependencies": {
-    "concurrently": "^7.4.0"
+    "concurrently": "^7.4.0",
+    "node": "^18.9.1"
   }
 }
