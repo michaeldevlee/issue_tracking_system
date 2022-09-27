@@ -1,0 +1,21 @@
+{
+  "name": "issue_tracking_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "client": "npm run start --prefix client",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaeldevlee/issue_tracking_system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaeldevlee/issue_tracking_system/issues"
+  },
+  "homepage": "https://github.com/michaeldevlee/issue_tracking_system#readme"
+}
