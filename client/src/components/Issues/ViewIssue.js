@@ -25,12 +25,12 @@ const ViewIssue = () => {
     }
 
     const getIssue = async ()=>{
-        const res = await fetch ('/issues/getIssue', issue_options);
+        const res = await fetch ('https://protofast-backend.onrender.com/issues/getIssue', issue_options);
         const issue = await res.json();
         setProject(issue.issue[0])
 
         
-        const user = await fetch('/users/getUser', user_options)
+        const user = await fetch('https://protofast-backend.onrender.com/users/getUser', user_options)
         const user_data = await user.json();
         setUser(user_data.user[0].userName)
         setAuthor(project.author)

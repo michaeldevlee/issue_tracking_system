@@ -17,7 +17,7 @@ const Navbar = () => {
             }
         }
 
-        const response = await fetch ('/logout', options)
+        const response = await fetch ('https://protofast-backend.onrender.com/logout', options)
         const data = await response.json();
         localStorage.removeItem('user');
         window.location.reload(false);

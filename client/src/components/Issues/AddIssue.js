@@ -38,13 +38,13 @@ const TestFunction = ()=>{
             }
         }
         if(1==2){
-            const response = await fetch('/issues/createIssue', options );
+            const response = await fetch('https://protofast-backend.onrender.com/issues/createIssue', options );
             const data = await response.json();
             console.log(data)
             navigate('/',{replace : true})
         }
         else{
-            const response = await fetch('/projects/createProject', options );
+            const response = await fetch('https://protofast-backend.onrender.com/projects/createProject', options );
             const data = await response.json();
             console.log(data)
             navigate('/',{replace : true})

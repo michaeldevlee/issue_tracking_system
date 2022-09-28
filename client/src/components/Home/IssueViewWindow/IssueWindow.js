@@ -38,7 +38,7 @@ const IssueView = (props) => {
             }
         }
 
-        const response = await fetch('projects/deleteProject', options)
+        const response = await fetch('/https://protofast-backend.onrender.com/projects/deleteProject', options)
         const data = await response.json();
         console.log(data)
         window.location.reload(false)
@@ -57,7 +57,7 @@ const IssueView = (props) => {
             }
         }
 
-        const response = await fetch('projects/updateProject', options)
+        const response = await fetch('https://protofast-backend.onrender.com/projects/updateProject', options)
         const data = await response.json();
         console.log(data)
         window.location.reload(false)

@@ -26,7 +26,7 @@ const InviteUserModal = (props) => {
             }
         }
 
-        const response = await fetch('/users/searchUsers', options)
+        const response = await fetch('/https://protofast-backend.onrender.com/users/searchUsers', options)
         const data = await response.json();
         setUsers(data.users)
         console.log(data.users)

@@ -21,7 +21,7 @@ const Home = () => {
             }
         }
 
-        const response = await fetch ('/projects/getProjects', options);
+        const response = await fetch ('/https://protofast-backend.onrender.com/projects/getProjects', options);
         const data = await response.json();
         setProjects(data.projects)
         console.log(data.projects)

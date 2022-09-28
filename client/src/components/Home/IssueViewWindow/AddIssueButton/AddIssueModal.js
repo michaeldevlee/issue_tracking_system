@@ -60,7 +60,7 @@ const AddIssueModal = (props) => {
             }
         }
         if(projectExists){
-            const response = await fetch('/projects/updateProject', update_options );
+            const response = await fetch('https://protofast-backend.onrender.com/projects/updateProject', update_options );
             const data = await response.json();
             setAction("ADD")
             console.log(data)
