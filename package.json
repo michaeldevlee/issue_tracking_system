@@ -21,5 +21,6 @@
   "dependencies": {
     "concurrently": "^7.4.0",
     "node": "^18.9.1"
-  }
+  },
+  "proxy": "https://protofast-backend.onrender.com/"
 }
