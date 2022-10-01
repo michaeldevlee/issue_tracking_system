@@ -21,7 +21,7 @@ const Login = () => {
             }
         }
     
-        const response = await fetch ('/login' , options)
+        const response = await fetch ('https://protofast-backend.onrender.com/login' , options)
         const data = await response.json();
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
