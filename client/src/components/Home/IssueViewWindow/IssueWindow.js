@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Router, Routes, Switch } from "react-router-dom";
+import getBaseUrl from "../../../utils/getBaseUrl";
 import AddIssueButton from "./AddIssueButton/AddIssueButton";
 import IssueViewBox from "./IssueViewBox/IssueViewBox";
 import IssueViewModal from "./IssueViewModal/IssueViewModal";
@@ -38,7 +39,7 @@ const IssueView = (props) => {
             }
         }
 
-        const response = await fetch('/https://protofast-backend.onrender.com/projects/deleteProject', options)
+        const response = await fetch( getBaseUrl() +'/projects/deleteProject', options)
         const data = await response.json();
         console.log(data)
         window.location.reload(false)
@@ -57,7 +58,7 @@ const IssueView = (props) => {
             }
         }
 
-        const response = await fetch('https://protofast-backend.onrender.com/projects/updateProject', options)
+        const response = await fetch(getBaseUrl() + '/projects/updateProject', options)
         const data = await response.json();
         console.log(data)
         window.location.reload(false)

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import getBaseUrl from "../../../../utils/getBaseUrl";
 import Projects from "../../../Project/Projects";
 
 const AddIssueModal = (props) => {
@@ -60,14 +61,14 @@ const AddIssueModal = (props) => {
             }
         }
         if(projectExists){
-            const response = await fetch('https://protofast-backend.onrender.com/projects/updateProject', update_options );
+            const response = await fetch( getBaseUrl() + '/projects/updateProject', update_options );
             const data = await response.json();
             setAction("ADD")
             console.log(data)
             window.location.reload(false);
         }
         else{
-            const response = await fetch('/projects/createProject', create_options );
+            const response = await fetch(getBaseUrl() + '/projects/createProject', create_options );
             const data = await response.json();
             setAction("NOTHING")
             console.log(data)

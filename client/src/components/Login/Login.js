@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
+import getBaseUrl from "../../utils/getBaseUrl";
 
 
 const Login = () => {
@@ -7,6 +8,8 @@ const Login = () => {
 
     const [userName , setUserName] = useState('');
     const [password , setPassword] = useState('');
+
+    console.log(getBaseUrl())
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,8 +23,9 @@ const Login = () => {
                 'Content-Type' : 'application/json'
             }
         }
-    
-        const response = await fetch ('https://protofast-backend.onrender.com/login' , options)
+
+        
+        const response = await fetch ( getBaseUrl() + '/login' , options)
         const data = await response.json();
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))

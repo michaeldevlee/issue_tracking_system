@@ -1,3 +1,5 @@
+import getBaseUrl from "../../../../utils/getBaseUrl"
+
 const IssueViewModal = (props) => {
 
     const handleClose = (e)=>{
@@ -19,7 +21,7 @@ const IssueViewModal = (props) => {
             }
         }
 
-        const response = await fetch('https://protofast-backend.onrender.com/projects/updateProject', options);
+        const response = await fetch( getBaseUrl() + '/projects/updateProject', options);
         const data = await response.json();
         console.log(data)
         window.location.reload(false)

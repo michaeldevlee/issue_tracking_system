@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import InviteUserModal from "./InviteUserModal/InviteUserModal";
 import IssueWindow from "./IssueViewWindow/IssueWindow"
 import ProjectList from "./ProjectList/ProjectList";
+import getBaseUrl from "../../utils/getBaseUrl";
 
 const Home = () => {
     const [userName, setUserName] = useState('');
@@ -21,7 +22,7 @@ const Home = () => {
             }
         }
 
-        const response = await fetch ('/https://protofast-backend.onrender.com/projects/getProjects', options);
+        const response = await fetch (getBaseUrl() +'/projects/getProjects', options);
         const data = await response.json();
         setProjects(data.projects)
         console.log(data.projects)

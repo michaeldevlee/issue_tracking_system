@@ -1,4 +1,5 @@
 import { useState } from "react";
+import getBaseUrl from "../../utils/getBaseUrl";
 
 const SignUp = () => {
 
@@ -28,7 +29,7 @@ const SignUp = () => {
             }
         }
 
-        const response = await fetch ('https://protofast-backend.onrender.com/signup', options);
+        const response = await fetch (getBaseUrl() + '/signup', options);
 
     }
 

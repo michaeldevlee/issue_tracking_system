@@ -1,4 +1,5 @@
 import { useState } from "react"
+import getBaseUrl from "../../../utils/getBaseUrl";
 import UserList from "./UserList/UserList";
 
 const InviteUserModal = (props) => {
@@ -26,7 +27,7 @@ const InviteUserModal = (props) => {
             }
         }
 
-        const response = await fetch('/https://protofast-backend.onrender.com/users/searchUsers', options)
+        const response = await fetch(getBaseUrl() + '/users/searchUsers', options)
         const data = await response.json();
         setUsers(data.users)
         console.log(data.users)

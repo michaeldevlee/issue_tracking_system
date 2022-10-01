@@ -1,5 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route, Switch, Link } from "react-router-dom";
+import getBaseUrl from "../../utils/getBaseUrl";
 
 
 const Navbar = () => {
@@ -17,7 +18,7 @@ const Navbar = () => {
             }
         }
 
-        const response = await fetch ('https://protofast-backend.onrender.com/logout', options)
+        const response = await fetch (getBaseUrl() + '/logout', options)
         const data = await response.json();
         localStorage.removeItem('user');
         window.location.reload(false);

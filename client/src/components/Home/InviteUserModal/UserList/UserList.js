@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import getBaseUrl from "../../../../utils/getBaseUrl";
 
 const UserList = (props) => {
 
@@ -7,7 +8,7 @@ const UserList = (props) => {
 
     useEffect(()=>{
         if (newCollaborator != ""){
-            fetch('/projects/updateProject', options)
+            fetch(getBaseUrl() + '/projects/updateProject', options)
             .then((response)=>response.json())
             .then((data)=>console.log(data))
             window.location.reload(false)
