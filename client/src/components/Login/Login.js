@@ -15,11 +15,14 @@ const Login = () => {
         e.preventDefault();
         const options = {
             method : 'POST',
+            withCredentials: true,
+            credentials: 'include',
             body : JSON.stringify({
                 userName : userName,
                 password : password,
             }),
             headers : {
+                'Accept': 'application/json',
                 'Content-Type' : 'application/json'
             }
         }
