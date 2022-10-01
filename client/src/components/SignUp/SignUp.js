@@ -28,7 +28,7 @@ const SignUp = () => {
             }
         }
 
-        const response = await fetch ('/signup', options);
+        const response = await fetch ('https://protofast-backend.onrender.com/signup', options);
 
     }
 
