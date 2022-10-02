@@ -32,6 +32,7 @@ const Login = () => {
         
         const response = await fetch ( getBaseUrl() + '/login' , options)
         const data = await response.json();
+        console.log(data.cookie)
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
         }
