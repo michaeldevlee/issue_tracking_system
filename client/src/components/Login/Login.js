@@ -26,12 +26,14 @@ const Login = () => {
                 'Content-Type' : 'application/json',
                 'Access-Control-Allow-Credentials': true
 
-            }
+            },
+
         }
 
         
         const response = await fetch ( getBaseUrl() + '/login' , options)
         const data = await response.json();
+        console.log(response.headers.get('set-cookie'))
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
         }
