@@ -13,8 +13,11 @@ const Navbar = () => {
     const handleLogOut = async () => {
         const options = {
             method : 'GET',
+            credentials : 'include',
             headers : {
-                'Content-Type' : 'application/json'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
 

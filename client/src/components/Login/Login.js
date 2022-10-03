@@ -15,7 +15,6 @@ const Login = () => {
         e.preventDefault();
         const options = {
             method : 'POST',
-            withCredentials: true,
             credentials: 'include',
             body : JSON.stringify({
                 userName : userName,
@@ -25,7 +24,6 @@ const Login = () => {
                 'Accept': 'application/json',
                 'Content-Type' : 'application/json',
                 'Access-Control-Allow-Credentials': true
-
             },
 
         }
@@ -33,7 +31,7 @@ const Login = () => {
         
         const response = await fetch ( getBaseUrl() + '/login' , options)
         const data = await response.json();
-        console.log(data)
+        console.log(data.user)
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
         }

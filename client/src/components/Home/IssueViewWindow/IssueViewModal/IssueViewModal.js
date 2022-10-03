@@ -11,13 +11,16 @@ const IssueViewModal = (props) => {
     const handleDelete = async (id)=>{
         const options ={
             method : 'PUT',
+            credentials : 'include',
             body : JSON.stringify({
                 action : 'DELETE',
                 project_id : props.currentProject._id,
                 issue_identifier : id,
             }),
             headers : {
+                'Accept' : 'application/json',
                 'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
 

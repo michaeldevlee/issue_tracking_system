@@ -27,6 +27,7 @@ const AddIssueModal = (props) => {
         evt.preventDefault();
         const create_options ={
             method: "POST",
+            credentials : 'include',
             body:JSON.stringify({
                 name: name,
                 description: description,
@@ -37,8 +38,10 @@ const AddIssueModal = (props) => {
                 new_issue : projectExists,
                 action : action,
             }),
-            headers:{
-                'Content-Type' : 'application/json'
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
 
             
@@ -46,6 +49,7 @@ const AddIssueModal = (props) => {
 
         const update_options ={
             method: "PUT",
+            credentials : 'include',
             body:JSON.stringify({
                 name: name,
                 description: description,
@@ -56,8 +60,10 @@ const AddIssueModal = (props) => {
                 new_issue : projectExists,
                 action : action,
             }),
-            headers:{
-                'Content-Type' : 'application/json'
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
         if(projectExists){

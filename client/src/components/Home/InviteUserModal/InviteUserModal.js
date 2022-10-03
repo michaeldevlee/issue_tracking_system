@@ -19,12 +19,16 @@ const InviteUserModal = (props) => {
 
         const options = {
             method : 'POST',
+            credentials: 'include',
             body : JSON.stringify({
                 userName : userName,
             }),
-            headers: {
-                'Content-Type' :'application/json'
-            }
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials': true
+            },
+
         }
 
         const response = await fetch(getBaseUrl() + '/users/searchUsers', options)

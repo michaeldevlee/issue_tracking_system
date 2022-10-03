@@ -31,11 +31,14 @@ const IssueView = (props) => {
     const handleDelete = async ()=>{
         const options = {
             method : 'DELETE',
+            credentials : 'include',
             body : JSON.stringify({
                 id : props.currentProjectViewed._id
             }),
             headers : {
-                'Content-Type' : 'application/json'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
 
@@ -48,13 +51,16 @@ const IssueView = (props) => {
     const handleLeaveProject = async ()=>{
         const options = {
             method : 'PUT',
+            credentials : 'include',
             body : JSON.stringify({
                 new_collaborator : currentAuthor,
                 project_id : props.currentProjectViewed._id,
                 action : 'DELETE',
             }),
             headers : {
-                'Content-Type' : 'application/json'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
 

@@ -13,14 +13,17 @@ const SignUp = () => {
 
         const options = {
             method : 'POST',
+            credentials : 'include',
             body : JSON.stringify({
                 userName : userName,
                 password : password,
                 confirmPassword : confirmPassword,
                 email : email,
             }),
-            headers:{
-                'Content-Type' : 'application/json'
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
             }
         }
 

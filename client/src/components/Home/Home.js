@@ -19,8 +19,11 @@ const Home = () => {
             method : 'GET',
             credentials: 'include',
             headers : {
-                'Content-Type':'application/json',
-            }
+                'Accept': 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials': true
+            },
+
         }
 
         const response = await fetch (getBaseUrl() +'/projects/getProjects', options);

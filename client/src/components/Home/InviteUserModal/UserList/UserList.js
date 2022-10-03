@@ -17,14 +17,18 @@ const UserList = (props) => {
     
     const options = {
         method : 'PUT',
+        credentials : 'include',
         body : JSON.stringify({
           new_collaborator : newCollaborator,
           project_id : props.currentProjectViewed._id,
           action : 'ADD',  
         }),
         headers : {
-            'Content-Type' : 'application/json'
+            'Accept': 'application/json',
+            'Content-Type' : 'application/json',
+            'Access-Control-Allow-Credentials' : true,
         }
+
     }
 
     const handleAdd = async (e , userName)=>{
