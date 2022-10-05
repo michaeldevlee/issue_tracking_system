@@ -42,9 +42,22 @@ const IssueView = (props) => {
             }
         }
 
+        const role_delete_options ={
+            method : 'DELETE',
+            credentials : 'include',
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
+            }
+        }
+
         const response = await fetch( getBaseUrl() +'/projects/deleteProject', options)
         const data = await response.json();
-        console.log(data)
+        
+        const role_response = await fetch( getBaseUrl() + '/roles/deleteRole', role_delete_options);
+        const role_data = await role_response.json();
+
         window.location.reload(false)
     }
 
@@ -66,7 +79,8 @@ const IssueView = (props) => {
 
         const response = await fetch(getBaseUrl() + '/projects/updateProject', options)
         const data = await response.json();
-        console.log(data)
+
+
         window.location.reload(false)
     }
 

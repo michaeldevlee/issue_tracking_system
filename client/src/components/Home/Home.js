@@ -10,6 +10,7 @@ import getBaseUrl from "../../utils/getBaseUrl";
 const Home = () => {
     const [userName, setUserName] = useState('');
     const [projects, setProjects] = useState('');
+    const [roles, setRoles] = useState('');
     const [currentProjectViewed, setCurrentProjectViewed] = useState('');
     const [inviteUserModalStatus , setInviteUserModalStatus] = useState(false);
     const navigate = useNavigate();
@@ -29,7 +30,23 @@ const Home = () => {
         const response = await fetch (getBaseUrl() +'/projects/getProjects', options);
         const data = await response.json();
         setProjects(data.projects)
-        console.log(data.projects)
+    }
+
+    const getRole = async ()=>{
+        const options = {
+            method : 'GET',
+            credentials: 'include',
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials': true
+            },
+
+        }
+
+        const response = await fetch (getBaseUrl() +'/roles/getRoles', options);
+        const data = await response.json();
+        console.log(data)
     }
 
 
@@ -43,6 +60,7 @@ const Home = () => {
             navigate('/login')
         }
         getProjects();
+        getRole();
         
     },[])
 

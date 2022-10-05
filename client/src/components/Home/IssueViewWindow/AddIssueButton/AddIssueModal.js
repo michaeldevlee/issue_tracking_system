@@ -37,6 +37,7 @@ const AddIssueModal = (props) => {
                 color: color,
                 new_issue : projectExists,
                 action : action,
+                role : 'admin',
             }),
             headers : {
                 'Accept' : 'application/json',
@@ -77,7 +78,10 @@ const AddIssueModal = (props) => {
             const response = await fetch(getBaseUrl() + '/projects/createProject', create_options );
             const data = await response.json();
             setAction("NOTHING")
-            console.log(data)
+
+            const role_response = await fetch(getBaseUrl() + '/roles/createRole', create_options)
+            const role_data = await role_response.json();
+            console.log(role_data)
             window.location.reload(false);
         }
 

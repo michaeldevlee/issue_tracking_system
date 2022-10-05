@@ -24,10 +24,10 @@ const IssueViewModal = (props) => {
             }
         }
 
+
         const response = await fetch( getBaseUrl() + '/projects/updateProject', options);
         const data = await response.json();
-        console.log(data)
-        window.location.reload(false)
+
 
     }
 
