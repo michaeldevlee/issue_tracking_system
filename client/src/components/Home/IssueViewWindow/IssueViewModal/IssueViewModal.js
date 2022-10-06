@@ -27,6 +27,7 @@ const IssueViewModal = (props) => {
 
         const response = await fetch( getBaseUrl() + '/projects/updateProject', options);
         const data = await response.json();
+        window.location.reload('false')
 
 
     }
@@ -43,6 +44,7 @@ const IssueViewModal = (props) => {
                     <div>
                         <button>Edit</button>
                         <button onClick={()=>handleDelete(props.currentIssue.id)}>Delete</button>
+                        {props.currentProject.author == JSON.parse(localStorage.getItem('user')).user.userName ? <button>Review</button> : null}
                     </div>
                 </div>
             </div>

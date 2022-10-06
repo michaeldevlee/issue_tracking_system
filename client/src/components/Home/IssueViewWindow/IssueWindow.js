@@ -45,6 +45,9 @@ const IssueView = (props) => {
         const role_delete_options ={
             method : 'DELETE',
             credentials : 'include',
+            body : JSON.stringify({
+                project_id : props.currentProjectViewed._id
+            }),
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json',

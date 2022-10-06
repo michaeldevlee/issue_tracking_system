@@ -34,7 +34,10 @@ const Home = () => {
 
     const getRole = async ()=>{
         const options = {
-            method : 'GET',
+            method : 'POST',
+            body : JSON.stringify({
+                project_id : currentProjectViewed._id,
+            }),
             credentials: 'include',
             headers : {
                 'Accept': 'application/json',
@@ -44,23 +47,26 @@ const Home = () => {
 
         }
 
-        const response = await fetch (getBaseUrl() +'/roles/getRoles', options);
+        const response = await fetch (getBaseUrl() +'/roles/getRole', options);
         const data = await response.json();
-        console.log(data)
+        setRoles(data.role)
+        console.log('getting role')
     }
 
 
     useEffect(()=>{
+        console.log('check if cookie exists')
         const user = localStorage.getItem('user')
-        if (user){
+        if (user && document.cookie){
             setUserName(JSON.parse(user).user.userName)
+            getProjects();
+            getRole();
         }
         else{
             localStorage.clear('user');
             navigate('/login')
         }
-        getProjects();
-        getRole();
+
         
     },[])
 

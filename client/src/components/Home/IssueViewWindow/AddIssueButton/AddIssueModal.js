@@ -25,20 +25,23 @@ const AddIssueModal = (props) => {
     const handleSubmit = async (evt)=>{
         
         evt.preventDefault();
+
+        const create_body = {
+            name: name,
+            description: description,
+            project_id: projectId,
+            projectName : projectExists ? projectName : newProjectName,
+            author : author,
+            color: color,
+            new_issue : projectExists,
+            action : action,
+            role : 'admin',
+        }
+
         const create_options ={
             method: "POST",
             credentials : 'include',
-            body:JSON.stringify({
-                name: name,
-                description: description,
-                project_id: projectId,
-                projectName : projectExists ? projectName : newProjectName,
-                author : author,
-                color: color,
-                new_issue : projectExists,
-                action : action,
-                role : 'admin',
-            }),
+            body:JSON.stringify(create_body),
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json',
@@ -48,19 +51,21 @@ const AddIssueModal = (props) => {
             
         }
 
+        const update_body = {
+            name: name,
+            description: description,
+            project_id: projectId,
+            projectName : projectExists ? projectName : newProjectName,
+            author : author,
+            color: color,
+            new_issue : projectExists,
+            action : action,
+        }
+
         const update_options ={
             method: "PUT",
             credentials : 'include',
-            body:JSON.stringify({
-                name: name,
-                description: description,
-                project_id: projectId,
-                projectName : projectExists ? projectName : newProjectName,
-                author : author,
-                color: color,
-                new_issue : projectExists,
-                action : action,
-            }),
+            body:JSON.stringify(update_body),
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json',
@@ -78,11 +83,30 @@ const AddIssueModal = (props) => {
             const response = await fetch(getBaseUrl() + '/projects/createProject', create_options );
             const data = await response.json();
             setAction("NOTHING")
+            console.log('create project')
+            console.log(data.project._id)
+            
+            const new_role_options = {
+                method: "POST",
+                credentials : 'include',
+                body:JSON.stringify({
+                    project_id : data.project._id,
+                    role : 'admin',
+                }),
+                headers : {
+                    'Accept' : 'application/json',
+                    'Content-Type' : 'application/json',
+                    'Access-Control-Allow-Credentials' : true,
+                }
+    
 
-            const role_response = await fetch(getBaseUrl() + '/roles/createRole', create_options)
+            }
+
+            const role_response = await fetch(getBaseUrl() + '/roles/createRole', new_role_options)
             const role_data = await role_response.json();
             console.log(role_data)
-            window.location.reload(false);
+
+            window.location.reload(false)
         }
 
     }
