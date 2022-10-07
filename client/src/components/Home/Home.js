@@ -30,6 +30,7 @@ const Home = () => {
         const response = await fetch (getBaseUrl() +'/projects/getProjects', options);
         const data = await response.json();
         setProjects(data.projects)
+        console.log(data.projects)
     }
 
     const getRole = async ()=>{
@@ -55,7 +56,6 @@ const Home = () => {
 
 
     useEffect(()=>{
-        console.log('check if cookie exists')
         const user = localStorage.getItem('user')
         if (user && document.cookie){
             setUserName(JSON.parse(user).user.userName)
@@ -64,7 +64,6 @@ const Home = () => {
         }
         else{
             localStorage.clear('user');
-            navigate('/login')
         }
 
         

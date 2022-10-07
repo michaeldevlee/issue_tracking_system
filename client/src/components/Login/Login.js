@@ -34,8 +34,9 @@ const Login = () => {
         console.log(data.user)
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
+            window.location.reload(false);
         }
-        navigate('/')
+        
 
     }
     

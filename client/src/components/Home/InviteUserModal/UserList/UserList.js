@@ -31,8 +31,8 @@ const UserList = (props) => {
 
     }
 
-    const handleAdd = async (e , userName)=>{
-        const collaborator = userName;
+    const handleAdd = async (e , id)=>{
+        const collaborator = id;
 
         e.preventDefault();
         e.target.disabled = true;
@@ -44,11 +44,11 @@ const UserList = (props) => {
     return ( <div>
         {props.users.map((user)=>{
         return (
-        <div key={user.userName} className="user-result">
+        <div key={user._id} className="user-result">
             <p>{user.userName}</p>
-            {!props.currentProjectViewed.collaborators.includes(user.userName) ? 
+            {!props.currentProjectViewed.collaborators.includes(user._id) ? 
             <button className="invite-button" onClick={(e)=>{
-                handleAdd(e, user.userName)
+                handleAdd(e, user._id)
             }}>Add</button>:
             <button className="invite-button" disabled={true}>Joined</button>}
             
