@@ -5,11 +5,13 @@ import getBaseUrl from "../../../utils/getBaseUrl";
 import AddIssueButton from "./AddIssueButton/AddIssueButton";
 import IssueViewBox from "./IssueViewBox/IssueViewBox";
 import IssueViewModal from "./IssueViewModal/IssueViewModal";
+import IssueEditModal from "../IssueViewWindow/IssueViewModal/IssueEditModal";
 
 
 const IssueView = (props) => {
     const [filter , setFilter] = useState('Created');
     const [viewBoxStatus , setViewBoxStatus] = useState(false);
+    const [editModalStatus, setEditModalStatus] = useState(false);
     const [currentIssue, setCurrentIssue] = useState(null);
 
     const currentAuthor = JSON.parse(localStorage.getItem('user')).user.userName;
@@ -125,9 +127,15 @@ const IssueView = (props) => {
                 </div>
                 <IssueViewModal
                 viewBoxStatus={viewBoxStatus}
+                setEditModalStatus={setEditModalStatus} 
                 toggleViewBoxStatus={onIssueClick}
                 currentIssue={currentIssue}
                 currentProject={props.currentProjectViewed}
+                />
+                <IssueEditModal 
+                setEditModalStatus={setEditModalStatus}
+                editModalStatus={editModalStatus}
+                currentIssue={currentIssue}
                 />
 
                 <div>

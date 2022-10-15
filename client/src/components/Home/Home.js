@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import InviteUserModal from "./InviteUserModal/InviteUserModal";
-import IssueWindow from "./IssueViewWindow/IssueWindow"
+import IssueWindow from "./IssueViewWindow/IssueWindow";
 import ProjectList from "./ProjectList/ProjectList";
 import getBaseUrl from "../../utils/getBaseUrl";
 
@@ -62,11 +62,6 @@ const Home = () => {
             getProjects();
             getRole();
         }
-        else{
-            localStorage.clear('user');
-        }
-
-        
     },[])
 
     return (

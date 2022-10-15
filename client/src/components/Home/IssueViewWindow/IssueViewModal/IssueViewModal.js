@@ -1,6 +1,13 @@
-import getBaseUrl from "../../../../utils/getBaseUrl"
+import { useState } from "react";
+import getBaseUrl from "../../../../utils/getBaseUrl";
+import IssueEditModal from "./IssueEditModal";
 
 const IssueViewModal = (props) => {
+
+    const openEditPage = ()=>{
+
+        props.setEditModalStatus(true);
+    }
 
     const handleClose = (e)=>{
         if(e.target.classList.contains('modal-overlay') || e.target.classList.contains('exit-modal-button')){
@@ -31,8 +38,30 @@ const IssueViewModal = (props) => {
 
 
     }
+    
+    const handleReview = async ()=>{
 
-    if (props.viewBoxStatus && props.currentIssue){
+    }
+
+    const handleEdit = async ()=>{
+        const options ={
+            method : 'PUT',
+            credentials : 'include',
+            body : JSON.stringify({
+                action: "EDIT",
+                new_issue : props.currentIssue,
+            }),
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
+            }
+        }
+        openEditPage();
+        
+    }
+
+    if (props.viewBoxStatus){
         return ( 
             <div className="modal-overlay" onClick={(e)=>handleClose(e)}>
                 
@@ -42,15 +71,15 @@ const IssueViewModal = (props) => {
                     <h2>Description</h2>
                     <p>{props.currentIssue.description}</p>
                     <div>
-                        <button>Edit</button>
+                        <button onClick={()=>handleEdit()}>Edit</button>
                         <button onClick={()=>handleDelete(props.currentIssue.id)}>Delete</button>
-                        {props.currentProject.author == JSON.parse(localStorage.getItem('user')).user.userName ? <button>Review</button> : null}
+                        {props.currentProject.author == JSON.parse(localStorage.getItem('user')).user.userName ? <button onClick={()=>handleReview()}>Review</button> : null}
                     </div>
                 </div>
             </div>
         );
     }
-    
+
 }
  
 export default IssueViewModal;
