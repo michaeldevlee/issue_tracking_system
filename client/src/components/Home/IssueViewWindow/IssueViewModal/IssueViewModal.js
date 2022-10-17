@@ -40,7 +40,7 @@ const IssueViewModal = (props) => {
     }
     
     const handleReview = async ()=>{
-
+        props.setReviewModalStatus(true);
     }
 
     const handleEdit = async ()=>{

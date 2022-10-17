@@ -6,12 +6,14 @@ import AddIssueButton from "./AddIssueButton/AddIssueButton";
 import IssueViewBox from "./IssueViewBox/IssueViewBox";
 import IssueViewModal from "./IssueViewModal/IssueViewModal";
 import IssueEditModal from "../IssueViewWindow/IssueViewModal/IssueEditModal";
+import IssueReviewModal from "./IssueViewModal/IssueReviewModal";
 
 
 const IssueView = (props) => {
     const [filter , setFilter] = useState('Created');
     const [viewBoxStatus , setViewBoxStatus] = useState(false);
     const [editModalStatus, setEditModalStatus] = useState(false);
+    const [reviewModalStatus, setReviewModalStatus] = useState(false);
     const [currentIssue, setCurrentIssue] = useState(null);
 
     const currentAuthor = JSON.parse(localStorage.getItem('user')).user.userName;
@@ -22,6 +24,7 @@ const IssueView = (props) => {
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
     }
+    
 
     const onIssueClick = (issue)=>{
         if(localStorage.getItem('user')){
@@ -128,6 +131,7 @@ const IssueView = (props) => {
                 <IssueViewModal
                 viewBoxStatus={viewBoxStatus}
                 setEditModalStatus={setEditModalStatus} 
+                setReviewModalStatus={setReviewModalStatus}
                 toggleViewBoxStatus={onIssueClick}
                 currentIssue={currentIssue}
                 currentProject={props.currentProjectViewed}
@@ -136,7 +140,15 @@ const IssueView = (props) => {
                 setEditModalStatus={setEditModalStatus}
                 editModalStatus={editModalStatus}
                 currentIssue={currentIssue}
+                currentProject={props.currentProjectViewed}
                 />
+                <IssueReviewModal
+                setReviewModalStatus={setReviewModalStatus}
+                reviewModalStatus={reviewModalStatus}
+                currentIssue={currentIssue}
+                currentProject={props.currentProjectViewed}
+                />
+                
 
                 <div>
                     {currentAuthor == author ? <button onClick={()=>handleDelete()}> Delete Project</button> : null}
