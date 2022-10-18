@@ -16,6 +16,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     const getProjects = async () => {
+        console.log('getting projects')
         const options = {
             method : 'GET',
             credentials: 'include',
