@@ -59,7 +59,7 @@ const Home = () => {
 
     useEffect(()=>{
         const user = localStorage.getItem('user')
-        if (user && document.cookie){
+        if (user){
             setUserName(JSON.parse(user).user.userName)
             getProjects();
             getRole();
