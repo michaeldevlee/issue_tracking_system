@@ -13,7 +13,7 @@ const ProjectList = (props) => {
                 hash[project.projectName] = true;
 
                 if (project.author == JSON.parse(localStorage.getItem('user')).user.userName){
-                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrent(project)}} >
+                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrentProjectViewed(project)}} >
                     <p
                     className="project-link"
                     key={project.projectName}>
@@ -22,12 +22,12 @@ const ProjectList = (props) => {
                         <p className="project-options"
                         onClick={()=>{
                             props.setInviteUserModalStatus(true)
-                            props.setCurrent(project)
+                            props.setCurrentProjectViewed(project)
                             }} >+</p>
                     </div> 
                 }
                 else{
-                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrent(project)}} >
+                    return <div key={project._id} className="project-tab" onClick={()=>{props.setCurrentProjectViewed(project)}} >
                     <p 
                     className="project-link"
                     

@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import getBaseUrl from "../../utils/getBaseUrl";
-
 const SignUp = () => {
 
     const [userName, setUserName] = useState('');
@@ -28,6 +28,20 @@ const SignUp = () => {
         }
 
         const response = await fetch (getBaseUrl() + '/signup', options);
+        const data = await response.json();
+        console.log(data);
+
+        if (data.error){
+            console.log('error occured');
+            console.log(data.error);
+        }
+        else{
+            console.log(data.user)
+            localStorage.setItem('user', JSON.stringify(data))
+            window.location.reload(false);
+        }
+
+
 
     }
 
@@ -57,7 +71,7 @@ const SignUp = () => {
                 <label>Password</label>
                 <input 
                 required
-                type="text" 
+                type="password" 
                 name="password" 
                 id="password" 
                 onChange={(e)=>{setPassword(e.target.value)}}/>
@@ -66,7 +80,7 @@ const SignUp = () => {
                 <label>Confirm Password</label>
                 <input 
                 required
-                type="text" 
+                type="password" 
                 name="confirm-password" 
                 id="confirm-password"
                 onChange={(e)=>{setConfirmPassword(e.target.value)}} />
@@ -75,6 +89,7 @@ const SignUp = () => {
                 <button type="submit">Sign Up</button>
             </div>
         </form>
+        <button><Link to="/login">Back to Login</Link></button>
     </div>
      );
 }

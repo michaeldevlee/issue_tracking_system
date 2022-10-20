@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import getBaseUrl from "../../utils/getBaseUrl";
 
 
@@ -35,6 +35,7 @@ const Login = () => {
         console.log(data.user)
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
+            window.location.reload(false);
         }
         
 
@@ -58,6 +59,7 @@ const Login = () => {
                     <button type="submit" >Login</button>
                 </div>
             </form>
+            <button><Link to="/signup">Sign Up</Link></button>
         </div>
      );
 }

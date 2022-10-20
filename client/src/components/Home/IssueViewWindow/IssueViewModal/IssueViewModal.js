@@ -4,6 +4,8 @@ import IssueEditModal from "./IssueEditModal";
 
 const IssueViewModal = (props) => {
 
+    const [approvalStatus , setApprovalStatus] = useState('Ready For Review')
+
     const openEditPage = ()=>{
 
         props.setEditModalStatus(true);
@@ -43,6 +45,32 @@ const IssueViewModal = (props) => {
         props.setReviewModalStatus(true);
     }
 
+    const handleReviewSubmit = async (e)=>{
+        e.preventDefault();
+
+        const options ={
+            method : 'PUT',
+            credentials : 'include',
+            body : JSON.stringify({
+                action: "REVIEW",
+                project_id : props.currentProject._id,
+                new_issue : props.currentIssue,
+                new_review_action: approvalStatus,
+            }),
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json',
+                'Access-Control-Allow-Credentials' : true,
+                }
+            }
+
+            const response = await fetch(getBaseUrl() + '/projects/updateProject', options);
+            const data = await response.json();
+            window.location.reload(false);
+            
+        }
+    
+
     const handleEdit = async ()=>{
         const options ={
             method : 'PUT',
@@ -73,7 +101,14 @@ const IssueViewModal = (props) => {
                     <div>
                         <button onClick={()=>handleEdit()}>Edit</button>
                         <button onClick={()=>handleDelete(props.currentIssue.id)}>Delete</button>
-                        {props.currentProject.author == JSON.parse(localStorage.getItem('user')).user.userName ? <button onClick={()=>handleReview()}>Review</button> : null}
+                        {(props.currentProject.author == JSON.parse(localStorage.getItem('user')).user.userName)
+                        && ((props.currentIssue.status == "Ready For Review"||
+                        props.currentIssue.status == "Under Review")) 
+                         ? <button onClick={()=>handleReview()}>Review</button> : null}
+                         {(props.currentIssue.status != "Ready For Review") &&
+                        (props.currentIssue.status != "Approved") &&
+                        (props.currentIssue.status != "Under Review")
+                         ? <button onClick={(e)=>handleReviewSubmit(e)}>Submit For Review</button> : null}
                     </div>
                 </div>
             </div>
