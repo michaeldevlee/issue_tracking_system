@@ -44,22 +44,26 @@ const Login = () => {
 
     
     return ( 
-        <div>
-            <h1>Login Page</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    <input onChange={(e)=>{setUserName(e.target.value)}} type="text" name="username" id="username"/>
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input onChange={(e)=>{setPassword(e.target.value)}} type="password" name="password" id="password" />
-                </div>
-                <div>
-                    <button type="submit" >Login</button>
-                </div>
-            </form>
-            <button><Link to="/signup">Sign Up</Link></button>
+        <div id="login-page-container">
+            <section id="login-area">
+                <img src="Logo.svg" id="logo"/>
+                <form onSubmit={handleSubmit}>
+                    <div className="login-section">
+                        <label>username</label>
+                        <input onChange={(e)=>{setUserName(e.target.value)}} type="text" name="username" id="username"/>
+                    </div>
+                    <div className="login-section">
+                        <label>password</label>
+                        <input onChange={(e)=>{setPassword(e.target.value)}} type="password" name="password" id="password" />
+                    </div>
+                        <button type="submit" className="login-bottom">Login</button>
+                </form>
+                <hr id="login-break" className="login-bottom"/>
+                <Link to="/signup"><button className="signup-button login-bottom" >Sign Up</button></Link>
+            </section>
+            <section id="login-visual-area">
+                <img src="/Login_Visual.svg" alt="" />
+            </section>
         </div>
      );
 }

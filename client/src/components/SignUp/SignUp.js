@@ -46,50 +46,55 @@ const SignUp = () => {
     }
 
     return ( 
-    <div>
-        <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Username</label>
-                <input 
-                required
-                type="text" 
-                name="username" 
-                id="username"
-                onChange={(e)=>{setUserName(e.target.value)}}/>
-            </div>
-            <div>
-                <label>Email</label>
-                <input 
-                required
-                type="text" 
-                name="email" 
-                id="email"
-                onChange={(e)=>{setEmail(e.target.value)}}/>
-            </div>
-            <div>
-                <label>Password</label>
-                <input 
-                required
-                type="password" 
-                name="password" 
-                id="password" 
-                onChange={(e)=>{setPassword(e.target.value)}}/>
-            </div>
-            <div>
-                <label>Confirm Password</label>
-                <input 
-                required
-                type="password" 
-                name="confirm-password" 
-                id="confirm-password"
-                onChange={(e)=>{setConfirmPassword(e.target.value)}} />
-            </div>
-            <div>
-                <button type="submit">Sign Up</button>
-            </div>
-        </form>
-        <button><Link to="/login">Back to Login</Link></button>
+    <div id="signup-page-container">
+        <section id="signup-area" >
+            <img src="/Logo.svg" id="logo"/>
+            <h1>Sign Up</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>username</label>
+                    <input
+                    required
+                    type="text"
+                    name="username"
+                    id="username"
+                    onChange={(e)=>{setUserName(e.target.value)}}/>
+                </div>
+                <div>
+                    <label>email</label>
+                    <input
+                    required
+                    type="text"
+                    name="email"
+                    id="email"
+                    onChange={(e)=>{setEmail(e.target.value)}}/>
+                </div>
+                <div>
+                    <label>password</label>
+                    <input
+                    required
+                    type="password"
+                    name="password"
+                    id="password"
+                    onChange={(e)=>{setPassword(e.target.value)}}/>
+                </div>
+                <div>
+                    <label>confirm password</label>
+                    <input
+                    required
+                    type="password"
+                    name="confirm-password"
+                    id="confirm-password"
+                    onChange={(e)=>{setConfirmPassword(e.target.value)}} />
+                </div>
+                    <button className="signup-button" type="submit">Sign Up</button>
+            </form>
+            <p className="back-to-login-link"><Link to="/login">Back to Login</Link></p>
+        </section>
+        
+        <section id="signup-visual-area">
+            <img src="/Signup_Visual.svg" alt="" />
+        </section>
     </div>
      );
 }
