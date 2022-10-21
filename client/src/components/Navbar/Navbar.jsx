@@ -24,7 +24,7 @@ const Navbar = () => {
         const response = await fetch (getBaseUrl() + '/logout', options)
         const data = await response.json();
         localStorage.removeItem('user');
-        window.location.href = '/login';
+        window.location.reload(false);
     }
 
     return ( 
