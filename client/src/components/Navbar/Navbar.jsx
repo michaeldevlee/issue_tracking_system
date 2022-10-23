@@ -30,7 +30,7 @@ const Navbar = () => {
     return ( 
         <nav className="navbar">
             <div>
-                <h1>ProtoFast</h1>
+                <img className="navbar-logo" src="/Logo.svg" alt="" />
                 <Link to='/'><p className="navbar-button">Dashboard</p></Link>
                 <Link to='/profile'><p className="navbar-button">Account</p></Link>
             </div>

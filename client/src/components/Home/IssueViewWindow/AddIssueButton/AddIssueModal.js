@@ -76,7 +76,6 @@ const AddIssueModal = (props) => {
             const response = await fetch( getBaseUrl() + '/projects/updateProject', update_options );
             const data = await response.json();
             setAction("ADD")
-            console.log(data)
             window.location.reload(false);
         }
         else{

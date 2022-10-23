@@ -20,8 +20,6 @@ const Account = (props) => {
                 }
             })
         })
-        console.log(approved);
-        console.log(created)
         
         return(
             <div className="home">

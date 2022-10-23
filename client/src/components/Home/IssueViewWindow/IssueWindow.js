@@ -19,8 +19,6 @@ const IssueView = (props) => {
     const currentAuthor = JSON.parse(localStorage.getItem('user')).user.userName;
     const author = props.currentProjectViewed.author
 
-    console.log(author)
-
     const showFilteredIssues = (filterParams)=>{
         setFilter(filterParams)
     }

@@ -9,8 +9,6 @@ const UserList = (props) => {
     useEffect(()=>{
         if (newCollaborator != ""){
             fetch(getBaseUrl() + '/projects/updateProject', options)
-            .then((response)=>response.json())
-            .then((data)=>console.log(data))
             window.location.reload(false)
         }
     },[newCollaborator])

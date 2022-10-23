@@ -37,8 +37,16 @@ function App() {
 
       const response = await fetch (getBaseUrl() +'/projects/getProjects', options);
       const data = await response.json();
-      setProjects(data.projects)
-      console.log(data.projects)
+
+      if (data.projects){
+        setProjects(data.projects)
+      }
+      else{
+        localStorage.clear();
+        window.location.reload(false);
+      }
+      
+      
   }
 
   const getRole = async ()=>{

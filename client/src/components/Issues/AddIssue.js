@@ -44,13 +44,11 @@ const TestFunction = ()=>{
         if(1==2){
             const response = await fetch(getBaseUrl() + '/issues/createIssue', options );
             const data = await response.json();
-            console.log(data)
             navigate('/',{replace : true})
         }
         else{
             const response = await fetch(getBaseUrl() + '/projects/createProject', options );
             const data = await response.json();
-            console.log(data)
             navigate('/',{replace : true})
         }
 

@@ -4,10 +4,8 @@ const ProjectList = (props) => {
 
     if (props.projects.length > 0){
         return ( <div className="project-list">
-            <div className="search-bar">
-                <button>+</button>
-                <input  type="text" />
-            </div>
+            <h2>Project List</h2>
+
         {props.projects.map((project)=>{
             if (hash[project.projectName] == null){
                 hash[project.projectName] = true;

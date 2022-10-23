@@ -9,8 +9,6 @@ const Login = () => {
     const [userName , setUserName] = useState('');
     const [password , setPassword] = useState('');
 
-    console.log(getBaseUrl())
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const options = {
@@ -32,7 +30,6 @@ const Login = () => {
         
         const response = await fetch ( getBaseUrl() + '/login' , options)
         const data = await response.json();
-        console.log(data.user)
         if (data.user){
             localStorage.setItem('user', JSON.stringify(data))
             window.location.reload(false);

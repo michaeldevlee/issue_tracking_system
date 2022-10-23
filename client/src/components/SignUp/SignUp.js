@@ -29,14 +29,11 @@ const SignUp = () => {
 
         const response = await fetch (getBaseUrl() + '/signup', options);
         const data = await response.json();
-        console.log(data);
 
         if (data.error){
-            console.log('error occured');
-            console.log(data.error);
+            alert('Something went wrong');
         }
         else{
-            console.log(data.user)
             localStorage.setItem('user', JSON.stringify(data))
             window.location.reload(false);
         }
