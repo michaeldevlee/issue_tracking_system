@@ -42,8 +42,7 @@ function App() {
         setProjects(data.projects)
       }
       else{
-        localStorage.clear();
-        window.location.reload(false);
+        console.log(data.projects)
       }
       
       
